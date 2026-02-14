@@ -33,7 +33,7 @@ class AppTheme {
         titleMedium: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color: Colors.indigo,
+          color: Colors.black,
         ),
 
         // CORPO DEL TESTO
