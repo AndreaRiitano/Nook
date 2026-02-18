@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'app_theme.dart';
+import 'login_screen.dart';
+import 'register_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -7,11 +11,20 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('it', 'IT'), // Italiano
+        Locale('en', 'US'), // Inglese
+      ],
       theme: AppTheme.theme,
       home: const WelcomePage(),
     );
@@ -20,15 +33,6 @@ class MyApp extends StatelessWidget {
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
 
 
@@ -84,7 +88,14 @@ class _WelcomePageState extends State<WelcomePage> {
                 SizedBox(
                   width: double.infinity,
                   height: 60,
-                  child: FilledButton(onPressed: (){}, child: const Text('ACCEDI')),
+                  child: FilledButton(onPressed: (){
+                    // Navigazione login
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
+                  }, child: const Text('ACCEDI')),
                 ),
                 SizedBox(height: 20), //spaziatura tra bottoni
 
@@ -92,7 +103,11 @@ class _WelcomePageState extends State<WelcomePage> {
                 SizedBox(
                   width: double.infinity,
                   height: 60,
-                  child: OutlinedButton(onPressed: (){}, child: const Text('REGISTRATI')),
+                  child: OutlinedButton(onPressed: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context)=> const RegisterScreen())
+                    );
+                  }, child: const Text('REGISTRATI')),
                 ),
               ],
             )),

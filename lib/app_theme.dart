@@ -7,6 +7,126 @@ class AppTheme {
   // Colore primario e secondario
   static const Color _primaryColor = Colors.teal;
   static const Color _secondaryColor = Colors.blueGrey;
+  static final InputDecoration textBoxDecoEmail = InputDecoration(
+    //colore
+    filled: true,
+    fillColor: Colors.indigo.shade50,
+    //etichetta
+    labelText: 'Email',
+    //icona
+    prefixIcon: Icon(Icons.email_outlined),
+    // Campo a riposo
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+    ),
+
+    // Quando l'utente ci scrive dentro
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(color: Colors.teal, width: 2),
+    ),
+
+    // Errore
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: const BorderSide(color: Colors.red, width: 1.5),
+    ),
+
+
+  );
+
+  static final InputDecoration textBoxDecoPassword = InputDecoration(
+    //colore
+      filled: true,
+      fillColor: Colors.indigo.shade50,
+      //etichetta
+      labelText: 'Password',
+      //icona
+      prefixIcon: Icon(Icons.lock_outline),
+
+      // Campo a riposo
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+      ),
+
+      // Quando l'utente ci scrive dentro
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.teal, width: 2),
+      ),
+
+      // Errore
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.red, width: 1.5),
+      )
+
+  );
+
+
+  static final InputDecoration textBoxDecoNome = InputDecoration(
+    //colore
+      filled: true,
+      fillColor: Colors.indigo.shade50,
+      //etichetta
+      labelText: 'Nome',
+      //icona
+      prefixIcon: Icon(Icons.person_outline),
+
+      // Campo a riposo
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+      ),
+
+      // Quando l'utente ci scrive dentro
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.teal, width: 2),
+      ),
+
+      // Errore
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.red, width: 1.5),
+      )
+
+  );
+
+  static final InputDecoration textBoxDecoCognome = InputDecoration(
+    //colore
+      filled: true,
+      fillColor: Colors.indigo.shade50,
+      //etichetta
+      labelText: 'Cognome',
+      //icona
+      prefixIcon: Icon(Icons.person_outline),
+
+      // Campo a riposo
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+      ),
+
+      // Quando l'utente ci scrive dentro
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.teal, width: 2),
+      ),
+
+      // Errore
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.red, width: 1.5),
+      )
+
+  );
+
+
+
+
 
   // Tema (potenziale lightmode)
   static final ThemeData theme = ThemeData(
