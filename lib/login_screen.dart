@@ -11,7 +11,9 @@ class LoginScreen extends StatefulWidget{
 }
 
 class _LoginScreenState extends State<LoginScreen>{
-  
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build (BuildContext context){
     return Scaffold(
@@ -29,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen>{
                 SizedBox(height:100,),
                 //CAMPO EMAIL
                 TextField(
-
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: AppTheme.textBoxDecoEmail
                 ),
@@ -39,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen>{
 
                 //Campo PASSWORD
                 TextField(
+                  controller: _passwordController,
                   keyboardType: TextInputType.text,
                   obscureText: true,
                   decoration: AppTheme.textBoxDecoPassword
@@ -58,6 +61,11 @@ class _LoginScreenState extends State<LoginScreen>{
       )
     );
   }
-}
 
-//DA INSERIRE CONTROLLER
+  @override
+  void dispose(){
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+}

@@ -15,8 +15,14 @@ class _RegisterScreenState extends State<RegisterScreen>{
   String? _selectedGender;
 
   final List<String> _genderOptions = ['Uomo', 'Donna', 'Preferisco non specificare'];
-  // controller mostra data nel box
-  final TextEditingController _birthDateController = TextEditingController();
+  // CONTROLLER
+
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _cognomeController = TextEditingController();
+  final TextEditingController _dataNascitaController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
 
   Future<void> _selectDate() async {
     // Mostra il calendario a schermo intero o popup
@@ -36,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
         String anno = picked.year.toString();
 
         // Scriviamo il risultato nel box
-        _birthDateController.text = "$giorno/$mese/$anno";
+        _dataNascitaController.text = "$giorno/$mese/$anno";
       });
     }
   }
@@ -56,10 +62,11 @@ class _RegisterScreenState extends State<RegisterScreen>{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height:100),
+              SizedBox(height:80),
 
               //CAMPO NOME
               TextField(
+                controller: _nomeController,
                 keyboardType: TextInputType.name,
                 decoration: AppTheme.textBoxDecoNome,
               ),
@@ -67,6 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
               SizedBox(height: 35),
               //CAMPO COGNOME
               TextField(
+                controller: _cognomeController,
                 keyboardType: TextInputType.name,
                 decoration: AppTheme.textBoxDecoCognome,
               ),
@@ -74,9 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
               SizedBox(height: 35,),
               //CAMPO DATA DI NASCITA
               TextField(
-                controller: _birthDateController, // Collega il controller
-
-
+                controller: _dataNascitaController, // Collega il controller
                 readOnly: true,  // blocca tastiera
                 onTap: _selectDate, // parte il calendario al tap.
 
@@ -108,6 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
               SizedBox(height: 35),
               //CAMPO EMAIL
               TextField(
+                controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: AppTheme.textBoxDecoEmail
               ),
@@ -117,6 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
 
               //Campo PASSWORD
               TextField(
+                controller: _passwordController,
                 keyboardType: TextInputType.text,
                 obscureText: true,
                 decoration: AppTheme.textBoxDecoPassword
@@ -183,6 +191,19 @@ class _RegisterScreenState extends State<RegisterScreen>{
         )
     );
   }
+
+  //eliminazione controller
+  @override
+  void dispose() {
+    _nomeController.dispose();
+    _cognomeController.dispose();
+    _dataNascitaController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    super.dispose();
+  }
+
 }
 
 
