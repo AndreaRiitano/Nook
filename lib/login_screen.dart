@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nook/app_theme.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget{
   const LoginScreen({super.key});
@@ -53,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen>{
                   width: double.infinity,
                   height: 60,
                   child: FilledButton(onPressed: (){
+                    _login();
                   }, child: const Text('ACCEDI')),
                 ),
               ],
@@ -67,5 +68,62 @@ class _LoginScreenState extends State<LoginScreen>{
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _login() async {
+    // CONTROLLO CAMPI
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Inserisci email e password per accedere.')),
+      );
+      return;
+    }
+
+    // CARICAMENTO
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      // ACCESSO
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      // FINE CARICAMENTE
+      Navigator.of(context).pop();
+
+      // SUCCESSO
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Accesso effettuato con successo! Bentornato su Nook.'),
+        ),
+      );
+
+      //ricordarmi di mettere roba qua per andare oltre
+
+    } on FirebaseAuthException catch (e) {
+      Navigator.of(context).pop();
+
+      // GESTIONE ERRORI
+
+      String messaggioErrore = 'Errore durante l\'accesso.';
+
+      if (e.code == 'invalid-credential' || e.code == 'user-not-found' || e.code == 'wrong-password') {
+        messaggioErrore = 'Email o password non corretti.';
+      } else if (e.code == 'invalid-email') {
+        messaggioErrore = 'Il formato dell\'email non è valido.';
+      } else if (e.code == 'user-disabled') {
+        messaggioErrore = 'Questo account è stato disabilitato.';
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(backgroundColor: Colors.red, content: Text(messaggioErrore)),
+      );
+    }
   }
 }

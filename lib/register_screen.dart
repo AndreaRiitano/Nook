@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterScreen extends StatefulWidget{
 
@@ -14,7 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
 
   String? _selectedGender;
 
-  final List<String> _genderOptions = ['Uomo', 'Donna', 'Preferisco non specificare'];
+  final List<String> _genderOptions = ['Uomo', 'Donna', 'Preferisco non specificare', 'Altro'];
   // CONTROLLER
 
   final TextEditingController _nomeController = TextEditingController();
@@ -183,6 +185,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
                 width: double.infinity,
                 height: 60,
                 child: FilledButton(onPressed: (){
+                  _register();
                 }, child: const Text('REGISTRATI')),
               ),
             ],
@@ -204,7 +207,87 @@ class _RegisterScreenState extends State<RegisterScreen>{
     super.dispose();
   }
 
+
+  Future<void> _register() async {
+    // Controllo su tutti i CAMPI
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty ||
+        _nomeController.text.isEmpty || _cognomeController.text.isEmpty ||
+        _dataNascitaController.text.isEmpty || _selectedGender==null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Tutti i campi sono obbligatori !')),
+      );
+      return;
+    }
+
+    // caricamento
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Impedisce di chiudere cliccando fuori
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+
+      //creazione utente
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+        // .trim() per togliere eventuali spazi vuoti
+      );
+
+      String uid = userCredential.user!.uid;
+
+      // salvataggio dati nel db
+      await FirebaseFirestore.instance.collection('utenti').doc(_emailController.text.trim()).set({
+        'email': _emailController.text.trim(),
+        'dataDiNascita': _dataNascitaController.text,
+        'genere': _selectedGender,
+        'nome': _nomeController.text.trim(),
+        'cognome': _cognomeController.text.trim(),
+        'UID': uid,
+        'dataCreazioneAccount': FieldValue.serverTimestamp(), // Salva l'ora esatta di registrazione
+      });
+
+      // chiusura caricamento
+      Navigator.of(context).pop();
+
+
+
+      //creazione avvenuta con successo
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Benvenuto su Nook! Registrazione completata.'),
+        ),
+      );
+
+      // CODICE PER COSA FARE DOPO
+
+    } on FirebaseAuthException catch (e) {
+      // Chiudiamo la rotellina in caso di errore
+      Navigator.of(context).pop();
+
+      // TRADUZIONE DEGLI ERRORI DI FIREBASE
+      String messaggioErrore = 'Si è verificato un errore durante la registrazione.';
+
+      if (e.code == 'weak-password') {
+        messaggioErrore = 'La password è troppo debole (minimo 6 caratteri).';
+      } else if (e.code == 'email-already-in-use') {
+        messaggioErrore = 'Esiste già un account Nook con questa email.';
+      } else if (e.code == 'invalid-email') {
+        messaggioErrore = 'Il formato dell\'email non è valido.';
+      }
+
+      // Mostriamo l'errore all'utente con un banner rosso
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(backgroundColor: Colors.red, content: Text(messaggioErrore)),
+      );
+    }
+  }
+
 }
+
+
 
 
 

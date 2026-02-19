@@ -38,6 +38,9 @@ dependencies:
     sdk: flutter
   intl: ^0.20.2
   firebase_core: ^4.4.0
+  firebase_auth: ^6.1.4
+  dropdown_search: ^6.0.2
+  cloud_firestore: ^6.1.2
 
 dev_dependencies:
   flutter_test:
