@@ -5,6 +5,7 @@ import 'register_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'auth_gate.dart';
 
 void main() async {
 
@@ -23,7 +24,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         Locale('en', 'US'), // Inglese
       ],
       theme: AppTheme.theme,
-      home: const WelcomePage(),
+      home: const AuthGate(),
     );
   }
 }

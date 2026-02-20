@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nook/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nook/homepage_screen.dart';
 
 class LoginScreen extends StatefulWidget{
   const LoginScreen({super.key});
@@ -104,7 +105,11 @@ class _LoginScreenState extends State<LoginScreen>{
         ),
       );
 
-      //ricordarmi di mettere roba qua per andare oltre
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomepageScreen()),
+            (Route<dynamic> route) => false,
+      );
 
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();

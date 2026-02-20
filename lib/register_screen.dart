@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'homepage_screen.dart';
 class RegisterScreen extends StatefulWidget{
 
   const RegisterScreen({super.key});
@@ -251,7 +251,11 @@ class _RegisterScreenState extends State<RegisterScreen>{
       // chiusura caricamento
       Navigator.of(context).pop();
 
-
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomepageScreen()),
+            (Route<dynamic> route) => false,
+      );
 
       //creazione avvenuta con successo
       ScaffoldMessenger.of(context).showSnackBar(
@@ -260,8 +264,6 @@ class _RegisterScreenState extends State<RegisterScreen>{
           content: Text('Benvenuto su Nook! Registrazione completata.'),
         ),
       );
-
-      // CODICE PER COSA FARE DOPO
 
     } on FirebaseAuthException catch (e) {
       // Chiudiamo la rotellina in caso di errore
