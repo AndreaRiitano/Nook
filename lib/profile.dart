@@ -16,6 +16,7 @@ class _ProfileState extends State<Profile>{
       return Scaffold(
 
         appBar: AppBar(),
+        body: Text('Profilo'),
       );
   }
 }
