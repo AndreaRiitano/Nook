@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nook/explore.dart';
 import 'package:nook/main.dart';
+import 'package:nook/order.dart';
 import 'app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'profile.dart';
@@ -21,7 +23,7 @@ class _HomepageScreenState extends State<HomepageScreen>{
 
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
+    /*  appBar: AppBar(
           title: const Text('Nook Home'),
           actions: [
       // TASTO LOGOUT
@@ -38,92 +40,90 @@ class _HomepageScreenState extends State<HomepageScreen>{
       },
       )
       ]
-    ),
-
-    body: _getCurrentPage(),
+    ),*/
+    //APPBAR CHE NON SERVIRÀ PIÙ, CODICE QUA DA USARE FINO A QUANDO NON SARÀ IMPLEMENTATO UN VERO LOGOUT
 
     backgroundColor: Colors.white,
 
+    body: Stack(
+      children: [
+        Positioned.fill(child:  _getCurrentPage()),
 
+        Positioned(
+            left: 10,
+            right: 10,
+            bottom: 0,
+            child:Container(
+            // distanza dai margini dello schermo
+              margin:  EdgeInsets.only(left: 20, right: 20, bottom: 15 + MediaQuery.of(context).padding.bottom), //aggiungo al margine basso la barra del telefono se esiste, sennò è +0
+              height: 55,
+              // forma e ombra della box
+              decoration: BoxDecoration(
+               color: Colors.white,
+               borderRadius: BorderRadius.circular(50),
+               boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.2), // Ombra leggera
+                  blurRadius: 15,
+                 offset: const Offset(0, 8),
+                ),
+              ],
+              ),
 
+              // contenuto
+              child: Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children: [
+                    //  ESPLORA
+                    IconButton(
+                      icon: Icon(
+                        _currentIndex == 0 ? Icons.explore_rounded : Icons.explore_outlined,
+                        color: Colors.black,
+                      ),
+                        onPressed: () {
+                        setState(() { _currentIndex = 0; });
+                      },
+                    ),
 
-   bottomNavigationBar:SafeArea(
-     child: Container(
-       // distanza dai margini dello schermo
-       margin: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                    //  ORDINI
+                    IconButton(
+                      icon: Icon(
+                        _currentIndex == 1 ? Icons.shopping_bag_rounded : Icons.shopping_bag_outlined,
+                        color: Colors.black,
+                      ),
+                        onPressed: () {
+                        setState(() { _currentIndex = 1; });
+                      },
+                    ),
 
-       // forma e ombra della box
-       decoration: BoxDecoration(
-         color: Colors.white, // Colore della tua app
-         borderRadius: BorderRadius.circular(50), // Il numero magico per la pillola!
-         boxShadow: [
-           BoxShadow(
-             color: Colors.black.withValues(alpha: 0.2), // Ombra leggera
-             blurRadius: 15,
-             offset: const Offset(0, 8),
-           ),
-         ],
-       ),
+                  //  PROFILO
+                  IconButton(
+                    icon: Icon(
+                      _currentIndex == 2 ? Icons.person_rounded : Icons.person_outline,
+                      color: Colors.black,
+                    ),
+                      onPressed: () {
+                      setState(() { _currentIndex = 2; });
+                    },
+                  ),
+               ],
+            ),
+              ),
+        ),
 
-       // contenuto
-       child: ClipRRect(
-         borderRadius: BorderRadius.circular(50),
-         child: BottomNavigationBar(
-           backgroundColor: Colors.transparent,
-           elevation: 0, // niente ombra di default
-
-           // Colori delle icone
-           selectedItemColor: Colors.black,
-           unselectedItemColor: Colors.black,
-
-           // testo icone nascosto
-           showSelectedLabels: false,
-           showUnselectedLabels: false,
-
-           // funzione da mettere nell'ontap, questa è una di prova
-           currentIndex: _currentIndex,
-           onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-              });
-
-             }
-           ,
-
-           //icone
-           items: const [
-             BottomNavigationBarItem(
-               icon: Icon(Icons.explore_outlined),
-               activeIcon: Icon(Icons.explore_rounded),
-               label: 'Home',
-             ),
-             BottomNavigationBarItem(
-               icon: Icon(Icons.shopping_bag_outlined),
-               activeIcon: Icon(Icons.shopping_bag_rounded),
-               label: 'Ordini',
-             ),
-             BottomNavigationBarItem(
-               icon: Icon(Icons.person_outline),
-               activeIcon: Icon(Icons.person_rounded),
-               label: 'Profilo',
-             ),
-           ],
-         ),
-       ),
-     ),
-   ) ,
-
-  );
+      ]
+     )
+    );
   }
 
 
   Widget _buildExplorePage() {
-    return const Center(child: Text('Esplora ', style: TextStyle(fontSize: 24)));
+    return const Explore();
   }
 
   Widget _buildOrderPage() {
 
-    return const Center(child: Text('Ordini', style: TextStyle(fontSize: 24)));
+    return const Order();
   }
 
   Widget _buildProfilePage() {
