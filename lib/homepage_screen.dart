@@ -93,15 +93,18 @@ class _HomepageScreenState extends State<HomepageScreen>{
            //icone
            items: const [
              BottomNavigationBarItem(
-               icon: Icon(Icons.home_rounded),
+               icon: Icon(Icons.explore_outlined),
+               activeIcon: Icon(Icons.explore_rounded),
                label: 'Home',
              ),
              BottomNavigationBarItem(
-               icon: Icon(Icons.shopping_bag_rounded),
+               icon: Icon(Icons.shopping_bag_outlined),
+               activeIcon: Icon(Icons.shopping_bag_rounded),
                label: 'Ordini',
              ),
              BottomNavigationBarItem(
-               icon: Icon(Icons.person_rounded),
+               icon: Icon(Icons.person_outline),
+               activeIcon: Icon(Icons.person_rounded),
                label: 'Profilo',
              ),
            ],
