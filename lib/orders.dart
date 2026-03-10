@@ -3,13 +3,13 @@ import 'package:nook/main.dart';
 import 'app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Order extends StatefulWidget {
+class Orders extends StatefulWidget {
 
-  const Order({super.key});
+  const Orders({super.key});
 
-  State<Order> createState() => _OrderState();
+  State<Orders> createState() => _OrdersState();
 }
-class _OrderState extends State<Order>{
+class _OrdersState extends State<Orders>{
 
   @override
   Widget build (BuildContext context){

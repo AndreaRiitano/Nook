@@ -1,7 +1,10 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nook/explore.dart';
 import 'package:nook/main.dart';
-import 'package:nook/order.dart';
+import 'package:nook/orders.dart';
 import 'app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'profile.dart';
@@ -47,6 +50,7 @@ class _HomepageScreenState extends State<HomepageScreen>{
 
     body: Stack(
       children: [
+
         Positioned.fill(child:  _getCurrentPage()),
 
         Positioned(
@@ -54,6 +58,10 @@ class _HomepageScreenState extends State<HomepageScreen>{
             right: 10,
             bottom: 0,
             child:Container(
+
+
+
+
             // distanza dai margini dello schermo
               margin:  EdgeInsets.only(left: 20, right: 20, bottom: 15 + MediaQuery.of(context).padding.bottom), //aggiungo al margine basso la barra del telefono se esiste, sennò è +0
               height: 55,
@@ -74,6 +82,7 @@ class _HomepageScreenState extends State<HomepageScreen>{
               child: Row(
                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                  children: [
+
                     //  ESPLORA
                     IconButton(
                       icon: Icon(
@@ -123,7 +132,7 @@ class _HomepageScreenState extends State<HomepageScreen>{
 
   Widget _buildOrderPage() {
 
-    return const Order();
+    return const Orders();
   }
 
   Widget _buildProfilePage() {
@@ -142,7 +151,6 @@ class _HomepageScreenState extends State<HomepageScreen>{
         return _buildExplorePage();
     }
   }
-
 
 
 }
