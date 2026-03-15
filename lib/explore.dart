@@ -3,6 +3,7 @@ import 'app_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'bnb_detail.dart';
 
 class Explore extends StatefulWidget {
 
@@ -140,7 +141,7 @@ class _ExploreState extends State<Explore>{
 
               var datiBnb = listaBnb[index].data() as Map<String, dynamic>;
 
-              return _buildCard(datiBnb);
+              return _buildCard(context, datiBnb);
             },
           );
         },
@@ -148,8 +149,20 @@ class _ExploreState extends State<Explore>{
     );
   }
 
-  Widget _buildCard(Map<String, dynamic> dati) {
-    return Container(
+
+
+  //CARD SINGOLA DEL CAROSELLO
+  Widget _buildCard(BuildContext context, Map<String, dynamic> dati) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+            MaterialPageRoute(
+                builder: (context)=>BnbDetail(bnbData: dati)
+            )
+        );
+
+      },
+    child: Container(
       width: 170,
       margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
       decoration: BoxDecoration(
@@ -227,6 +240,7 @@ class _ExploreState extends State<Explore>{
           ),
         ],
       ),
+    )
     );
   }
 
@@ -290,7 +304,7 @@ class _ExploreState extends State<Explore>{
 
               datiBnb['distanza'] = '$distanzaKm km da te';
 
-              return _buildCard(datiBnb);
+              return _buildCard(context, datiBnb);
             },
           );
         },
