@@ -123,6 +123,34 @@ class AppTheme {
       )
 
   );
+  static final InputDecoration textBoxDecoTelefono = InputDecoration(
+    //colore
+      filled: true,
+      fillColor: Colors.indigo.shade50,
+      //etichetta
+      labelText: 'Telefono',
+      //icona
+      prefixIcon: Icon(Icons.phone_outlined),
+
+      // Campo a riposo
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey.shade400, width: 1),
+      ),
+
+      // Quando l'utente ci scrive dentro
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.teal, width: 2),
+      ),
+
+      // Errore
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.red, width: 1.5),
+      )
+
+  );
 
 
 

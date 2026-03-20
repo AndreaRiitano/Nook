@@ -45,6 +45,7 @@ class _HomepageScreenState extends State<HomepageScreen>{
       ]
     ),*/
     //APPBAR CHE NON SERVIRÀ PIÙ, CODICE QUA DA USARE FINO A QUANDO NON SARÀ IMPLEMENTATO UN VERO LOGOUT
+    // ho implementato un logout vero ma mi dispiace togliere questo blocco, mi ci sono affezionato
 
     backgroundColor: Colors.white,
 

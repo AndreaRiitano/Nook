@@ -24,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
   final TextEditingController _dataNascitaController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _telefonoController = TextEditingController();
 
 
   Future<void> _selectDate() async {
@@ -64,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height:80),
+              SizedBox(height:20),
 
               //CAMPO NOME
               TextField(
@@ -133,6 +134,15 @@ class _RegisterScreenState extends State<RegisterScreen>{
               ),
               SizedBox(height: 35,),
 
+              //TELEFONO
+              TextField(
+                  controller: _telefonoController,
+                  keyboardType: TextInputType.number,
+                  obscureText: true,
+                  decoration: AppTheme.textBoxDecoTelefono
+              ),
+              SizedBox(height: 35,),
+
 
               DropdownButtonFormField<String>(
                 initialValue: _selectedGender,
@@ -179,7 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
               ),
 
               //spaziatura
-              SizedBox(height: 80,),
+              SizedBox(height: 60,),
               //BOTTONE REGISTRATI
               SizedBox(
                 width: double.infinity,
@@ -203,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
     _dataNascitaController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-
+    _telefonoController.dispose();
     super.dispose();
   }
 
@@ -212,7 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
     // Controllo su tutti i CAMPI
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty ||
         _nomeController.text.isEmpty || _cognomeController.text.isEmpty ||
-        _dataNascitaController.text.isEmpty || _selectedGender==null) {
+        _dataNascitaController.text.isEmpty || _selectedGender==null || _telefonoController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Tutti i campi sono obbligatori !')),
       );
@@ -240,6 +250,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
       // salvataggio dati nel db
       await FirebaseFirestore.instance.collection('utenti').doc(_emailController.text.trim()).set({
         'email': _emailController.text.trim(),
+        'telefono': _telefonoController.text.trim(),
         'dataDiNascita': _dataNascitaController.text,
         'genere': _selectedGender,
         'nome': _nomeController.text.trim(),
