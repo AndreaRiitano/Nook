@@ -6,10 +6,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'auth_gate.dart';
+import 'package:localization/localization.dart';
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
+  LocalJsonLocalization.delegate.directories = ['assets/i18n'];
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -24,7 +26,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: const [
+      localizationsDelegates: [
+        LocalJsonLocalization.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -38,6 +41,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -66,7 +71,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 const SizedBox(height: 100), //spazio bordo alto
                 //titolo
                 Center(
-                  child: Text('Benvenuto su Nook',
+                  child: Text('benvenuto'.i18n(),
                       style: Theme.of(context).textTheme.headlineLarge,
                       textAlign: TextAlign.center,
                       ),
@@ -74,7 +79,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 const SizedBox(height: 45),
                 
                 //sottotitolo
-                Text('Inizia la tua esperienza', style: Theme.of(context).textTheme.titleMedium),
+                Text('exp'.i18n(), style: Theme.of(context).textTheme.titleMedium),
 
                 const SizedBox(height: 80),
                 //spazio dedicato al logo
@@ -103,7 +108,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         builder: (context) => const LoginScreen(),
                       ),
                     );
-                  }, child: const Text('ACCEDI')),
+                  }, child:  Text('accedi'.i18n())),
                 ),
                 SizedBox(height: 20), //spaziatura tra bottoni
 
@@ -115,7 +120,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context)=> const RegisterScreen())
                     );
-                  }, child: const Text('REGISTRATI')),
+                  }, child:  Text('registrati'.i18n())),
                 ),
               ],
             )),
