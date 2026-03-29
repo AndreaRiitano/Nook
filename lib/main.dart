@@ -58,7 +58,6 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -108,7 +107,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         builder: (context) => const LoginScreen(),
                       ),
                     );
-                  }, child:  Text('accedi'.i18n())),
+                  }, child:  Text('accedi'.i18n().toUpperCase())),
                 ),
                 SizedBox(height: 20), //spaziatura tra bottoni
 
@@ -120,7 +119,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context)=> const RegisterScreen())
                     );
-                  }, child:  Text('registrati'.i18n())),
+                  }, child:  Text('registrati'.i18n().toUpperCase())),
                 ),
               ],
             )),

@@ -1,6 +1,19 @@
 {
   "benvenuto": "Welcome to Nook",
   "exp": "Start your experience",
-  "accedi": "LOGIN",
-  "registrati": "SIGN UP"
+  "accedi": "Login",
+  "registrati": "Sign up",
+  "nome": "First Name",
+  "cognome": "Last Name",
+  "telefono": "Phone",
+  "genere": "Gender",
+  "uomo": "Man",
+  "donna": "Woman",
+  "pref": "Prefer not to specify",
+  "altro": "Other",
+  "nascita":"Date of Birth",
+  "err_reg": "An error occured during registration.",
+  "comp_reg": "Welcome to Nook! Registration completed.",
+  "f_reg": "All fields are required!",
+  "comp_acc": "Logged in successfully. Welcome back to Nook!"
 }

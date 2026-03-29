@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:nook/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nook/homepage_screen.dart';
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen>{
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Accedi', style: TextStyle(fontSize: 25)),
+        title: Text('accedi'.i18n(), style: TextStyle(fontSize: 25)),
       ),
       body: SafeArea(child:
          SingleChildScrollView(
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen>{
                   height: 60,
                   child: FilledButton(onPressed: (){
                     _login();
-                  }, child: const Text('ACCEDI')),
+                  }, child: Text('accedi'.i18n().toUpperCase())),
                 ),
               ],
             ),
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen>{
     // CONTROLLO CAMPI
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Inserisci email e password per accedere.')),
+         SnackBar(content: Text('f_reg'.i18n())),
       );
       return;
     }
@@ -99,9 +100,9 @@ class _LoginScreenState extends State<LoginScreen>{
 
       // SUCCESSO
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           backgroundColor: Colors.green,
-          content: Text('Accesso effettuato con successo! Bentornato su Nook.'),
+          content: Text('comp_acc'.i18n()),
         ),
       );
 
@@ -118,12 +119,22 @@ class _LoginScreenState extends State<LoginScreen>{
 
       String messaggioErrore = 'Errore durante l\'accesso.';
 
-      if (e.code == 'invalid-credential' || e.code == 'user-not-found' || e.code == 'wrong-password') {
+      if (e.code == 'invalid-credential' || e.code == 'user-not-found' || e.code == 'wrong-password'&& Localizations.localeOf(context)=='it_IT') {
         messaggioErrore = 'Email o password non corretti.';
-      } else if (e.code == 'invalid-email') {
+      } else{
+        messaggioErrore = 'Invalid email or password.';
+      }
+
+      if (e.code == 'invalid-email'&& Localizations.localeOf(context)=='it_IT') {
         messaggioErrore = 'Il formato dell\'email non è valido.';
-      } else if (e.code == 'user-disabled') {
+      } else{
+        messaggioErrore= e.code;
+      }
+
+      if (e.code == 'user-disabled'&& Localizations.localeOf(context)=='it_IT') {
         messaggioErrore = 'Questo account è stato disabilitato.';
+      }else{
+        messaggioErrore = e.code;
       }
 
       ScaffoldMessenger.of(context).showSnackBar(

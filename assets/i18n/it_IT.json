@@ -1,6 +1,19 @@
 {
   "benvenuto":"Benvenuto su Nook",
   "exp": "Inizia la tua esperienza",
-  "accedi": "ACCEDI",
-  "registrati": "REGISTRATI"
+  "accedi": "Accedi",
+  "registrati": "Registrati",
+  "nome": "Nome",
+  "cognome": "Cognome",
+  "telefono": "Telefono",
+  "genere": "Genere",
+  "uomo": "Uomo",
+  "donna": "Donna",
+  "pref": "Preferisco non specificare",
+  "altro": "Altro",
+  "nascita": "Data di Nascita",
+  "err_reg": "Si è verificato un errore durante la registrazione.",
+  "comp_reg": "Benvenuto su Nook! Registrazione completata.",
+  "f_reg": "Tutti i campi sono obbligatori!",
+  "comp_acc": "Accesso effettuato con successo! Bentornato su Nook."
 }

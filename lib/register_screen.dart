@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +17,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
 
   String? _selectedGender;
 
-  final List<String> _genderOptions = ['Uomo', 'Donna', 'Preferisco non specificare', 'Altro'];
+  final List<String> _genderOptions = ['uomo'.i18n(), 'donna'.i18n(), 'pref'.i18n(), 'altro'.i18n()];
   // CONTROLLER
 
   final TextEditingController _nomeController = TextEditingController();
@@ -34,7 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
       initialDate: DateTime.now().subtract(const Duration(days: 365 * 18)), // Parte da 18 anni fa
       firstDate: DateTime(1900),   // Data minima (anno 1900)
       lastDate: DateTime.now(),    // Data massima (Oggi)
-      locale: const Locale("it", "IT"), // forza italiano
+      locale: Localizations.localeOf(context),
     );
 
     if (picked != null) {
@@ -57,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Registrati', style: TextStyle(fontSize: 25)),
+          title: Text('registrati'.i18n(), style: TextStyle(fontSize: 25)),
         ),
         body: SafeArea(child:
         SingleChildScrollView(
@@ -92,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.indigo.shade50,
-                  labelText: 'Data di Nascita',
+                  labelText: 'nascita'.i18n(),
                   hintText: 'GG/MM/AAAA', // Testo fantasma
 
                   prefixIcon: IconButton(
@@ -151,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.indigo.shade50,
-                  labelText: 'Genere',
+                  labelText: 'genere'.i18n(),
                   prefixIcon: const Icon(Icons.accessibility_new_rounded),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -196,7 +197,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
                 height: 60,
                 child: FilledButton(onPressed: (){
                   _register();
-                }, child: const Text('REGISTRATI')),
+                }, child:  Text('registrati'.i18n().toUpperCase())),
               ),
             ],
           ),
@@ -224,7 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen>{
         _nomeController.text.isEmpty || _cognomeController.text.isEmpty ||
         _dataNascitaController.text.isEmpty || _selectedGender==null || _telefonoController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Tutti i campi sono obbligatori !')),
+         SnackBar(content: Text('f_reg'.i18n())),
       );
       return;
     }
@@ -270,9 +271,9 @@ class _RegisterScreenState extends State<RegisterScreen>{
 
       //creazione avvenuta con successo
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+         SnackBar(
           backgroundColor: Colors.green,
-          content: Text('Benvenuto su Nook! Registrazione completata.'),
+          content: Text('comp_reg'.i18n()),
         ),
       );
 
@@ -281,14 +282,22 @@ class _RegisterScreenState extends State<RegisterScreen>{
       Navigator.of(context).pop();
 
       // TRADUZIONE DEGLI ERRORI DI FIREBASE
-      String messaggioErrore = 'Si è verificato un errore durante la registrazione.';
+      String messaggioErrore = 'err_reg'.i18n();
 
-      if (e.code == 'weak-password') {
+      if (e.code == 'weak-password' && Localizations.localeOf(context)=='it_IT') {
         messaggioErrore = 'La password è troppo debole (minimo 6 caratteri).';
-      } else if (e.code == 'email-already-in-use') {
+      } else{
+        messaggioErrore = e.code;
+      }
+      if (e.code == 'email-already-in-use'&& Localizations.localeOf(context)=='it_IT') {
         messaggioErrore = 'Esiste già un account Nook con questa email.';
-      } else if (e.code == 'invalid-email') {
+      }else{
+        messaggioErrore= e.code;
+      }
+      if (e.code == 'invalid-email'&& Localizations.localeOf(context)=='it_IT') {
         messaggioErrore = 'Il formato dell\'email non è valido.';
+      }else{
+        messaggioErrore = e.code;
       }
 
       // Mostriamo l'errore all'utente con un banner rosso

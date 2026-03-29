@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nook/main.dart';
-import 'app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'personal_info.dart';
@@ -18,7 +17,7 @@ class _ProfileState extends State<Profile>{
 
     final utente = FirebaseAuth.instance.currentUser;
 
-    // in caso assurdo non ci sia un utente
+    // in caso assurdo non ci sia un utente, manco lo localizzo questo
     if (utente == null) return const Center(child: Text("Nessun utente loggato"));
 
     return Scaffold(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class AppTheme {
   //Costruttore privato
@@ -71,7 +72,7 @@ class AppTheme {
       filled: true,
       fillColor: Colors.indigo.shade50,
       //etichetta
-      labelText: 'Nome',
+      labelText: 'nome'.i18n(),
       //icona
       prefixIcon: Icon(Icons.person_outline),
 
@@ -100,7 +101,7 @@ class AppTheme {
       filled: true,
       fillColor: Colors.indigo.shade50,
       //etichetta
-      labelText: 'Cognome',
+      labelText: 'cognome'.i18n(),
       //icona
       prefixIcon: Icon(Icons.person_outline),
 
@@ -128,7 +129,7 @@ class AppTheme {
       filled: true,
       fillColor: Colors.indigo.shade50,
       //etichetta
-      labelText: 'Telefono',
+      labelText: 'telefono'.i18n(),
       //icona
       prefixIcon: Icon(Icons.phone_outlined),
 
