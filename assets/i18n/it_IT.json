@@ -15,5 +15,19 @@
   "err_reg": "Si è verificato un errore durante la registrazione.",
   "comp_reg": "Benvenuto su Nook! Registrazione completata.",
   "f_reg": "Tutti i campi sono obbligatori!",
-  "comp_acc": "Accesso effettuato con successo! Bentornato su Nook."
+  "comp_acc": "Accesso effettuato con successo! Bentornato su Nook.",
+  "ciao": "Ciao",
+  "info": "Informazioni personali",
+  "supporto": "Supporto",
+  "assistenza": "Centro assistenza",
+  "termini": "Termini e Privacy",
+  "esci": "Esci",
+  "profilo": "Profilo",
+  "lingua": "Lingua",
+  "scegli_lingua": "Scegli lingua",
+  "acc_op": "Impostazioni account",
+  "info_d": "Qui puoi gestire i tuoi dati personali.",
+  "explore": "Esplora",
+  "pop": "I Più Popolari",
+  "near": "Vicino a Te"
 }

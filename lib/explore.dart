@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'bnb_detail.dart';
+import 'package:localization/localization.dart';
 
 class Explore extends StatefulWidget {
 
@@ -74,22 +75,22 @@ class _ExploreState extends State<Explore>{
         padding: const EdgeInsets.only(bottom: 100), // Spazio extra in fondo per non farci finire sopra la navbar a fine scroll
         children: [
           // Intestazione della pagina
-          const Padding(
+           Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
-              'Esplora',
+              'explore'.i18n(),
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
           ),
 
           // 1° Carosello
-          _buildTitoloSezione('I Più Popolari'),
+          _buildTitoloSezione('pop'.i18n()),
           _buildCaroselloOrizzontale(FirebaseFirestore.instance.collection('bnbs')
               .orderBy('valutazione', descending: true)
               .limit(6)),
 
           // 2° Carosello
-          _buildTitoloSezione('Vicino a Te'),
+          _buildTitoloSezione('near'.i18n()),
           if (_ricercaPosizione)
             const SizedBox(height: 240, child: Center(child: CircularProgressIndicator()))
           else if (_miaCittaAttuale == null)

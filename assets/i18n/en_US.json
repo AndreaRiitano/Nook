@@ -15,5 +15,19 @@
   "err_reg": "An error occured during registration.",
   "comp_reg": "Welcome to Nook! Registration completed.",
   "f_reg": "All fields are required!",
-  "comp_acc": "Logged in successfully. Welcome back to Nook!"
+  "comp_acc": "Logged in successfully. Welcome back to Nook!",
+  "ciao": "Hi",
+  "info": "Personal info",
+  "supporto": "Support",
+  "assistenza": "Help center",
+  "termini": "Terms and Privacy",
+  "esci": "Exit",
+  "profilo": "Profile",
+  "lingua": "Language",
+  "scegli_lingua": "Choose language",
+  "acc_op": "Account settings",
+  "info_d": "Here you can manage your personal data.",
+  "explore": "Explore",
+  "pop": "Most Popular",
+  "near": "Nearby"
 }

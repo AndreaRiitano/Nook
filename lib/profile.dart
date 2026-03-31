@@ -3,6 +3,7 @@ import 'package:nook/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'personal_info.dart';
+import 'package:localization/localization.dart';
 
 
 class Profile extends StatefulWidget {
@@ -27,8 +28,8 @@ class _ProfileState extends State<Profile>{
         child: ListView(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 120),
           children: [
-            const Text(
-                'Profilo',
+             Text(
+                'profilo'.i18n(),
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)
             ),
             const SizedBox(height: 30),
@@ -77,7 +78,7 @@ class _ProfileState extends State<Profile>{
                           }
 
                           return Text(
-                            'Ciao, $nomeMostrato!',
+                            'ciao'.i18n()+', $nomeMostrato!',
                             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                             overflow: TextOverflow.ellipsis,
                           );
@@ -100,14 +101,14 @@ class _ProfileState extends State<Profile>{
             const SizedBox(height: 40),
 
             // SEZIONE IMPOSTAZIONI ACCOUNT
-            const Text('Impostazioni account', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+             Text('acc_op'.i18n(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
 
             // INFORMAZIONI PERSONALI
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.person_outline, color: Colors.black87, size: 28),
-              title: const Text('Informazioni personali', style: TextStyle(fontSize: 16)),
+              title:  Text('info'.i18n(), style: TextStyle(fontSize: 16)),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
               onTap: () {
                 Navigator.push(
@@ -119,19 +120,44 @@ class _ProfileState extends State<Profile>{
             ),
 
             _buildListTile(Icons.question_mark_outlined, 'deciderò dopo cosa mettere'),
-            _buildListTile(Icons.language_outlined, 'Lingua'),
+
+            //LINGUA
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.language, color: Colors.black87),
+
+
+              title: Text('lingua'.i18n(), style: const TextStyle(fontSize: 16)),
+
+
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    Localizations.localeOf(context).languageCode == 'it' ? 'Italiano' : 'English',
+                    style: const TextStyle(color: Colors.grey, fontSize: 14),
+                  ),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                ],
+              ),
+              onTap: () {
+
+                _mostraSelettoreLingua(context);
+              },
+            ),
 
             const SizedBox(height: 20),
             const Divider(),
             const SizedBox(height: 20),
 
             // SEZIONE SUPPORTO
-            const Text('Supporto', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+             Text('supporto'.i18n(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
 
             //voci create con il metodo buildListTitle giusto per fare da placeholder, da sviluppare ed implementare singolarmente
-            _buildListTile(Icons.help_outline, 'Centro assistenza'),
-            _buildListTile(Icons.shield_outlined, 'Termini e privacy'),
+            _buildListTile(Icons.help_outline, 'assistenza'.i18n()),
+            _buildListTile(Icons.shield_outlined, 'termini'.i18n()),
 
             const SizedBox(height: 30),
 
@@ -139,8 +165,8 @@ class _ProfileState extends State<Profile>{
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.logout, color: Colors.redAccent, size: 28),
-              title: const Text(
-                  'Esci',
+              title:  Text(
+                  'esci'.i18n(),
                   style: TextStyle(color: Colors.redAccent, fontSize: 18, fontWeight: FontWeight.bold)
               ),
               onTap: () async {
@@ -169,6 +195,66 @@ class _ProfileState extends State<Profile>{
       title: Text(title, style: const TextStyle(fontSize: 16)),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
       onTap: () {},
+    );
+  }
+
+  //metodo per selettore lingua
+  void _mostraSelettoreLingua(BuildContext context) {
+
+    String linguaAttuale = Localizations.localeOf(context).languageCode;
+
+    showModalBottomSheet(
+        backgroundColor: Colors.white,
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (context) {
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+
+                  Text(
+                      'scegli_lingua'.i18n(),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
+                  ),
+                  const SizedBox(height: 10),
+
+                  // OPZIONE 1: ITALIANO
+                  ListTile(
+                    leading: const Text('🇮🇹', style: TextStyle(fontSize: 24)),
+                    title: const Text('Italiano', style: TextStyle(fontSize: 16)),
+
+                    trailing: linguaAttuale == 'it' ? const Icon(Icons.check, color: Colors.blue) : null,
+                    onTap: () {
+
+                      MyApp.setLocale(context, const Locale('it', 'IT'));
+
+                      Navigator.pop(context);
+                    },
+                  ),
+
+                  // OPZIONE 2: INGLESE
+                  ListTile(
+                    leading: const Text('🇬🇧', style: TextStyle(fontSize: 24)),
+                    title: const Text('English', style: TextStyle(fontSize: 16)),
+
+                    trailing: linguaAttuale == 'en' ? const Icon(Icons.check, color: Colors.blue) : null,
+                    onTap: () {
+
+                      MyApp.setLocale(context, const Locale('en', 'US'));
+
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
     );
   }
 }

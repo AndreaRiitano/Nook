@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:localization/localization.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
   const PersonalInfoScreen({super.key});
@@ -18,7 +19,7 @@ class PersonalInfoScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Informazioni personali',
+        title:  Text('info'.i18n(),
             style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -35,33 +36,33 @@ class PersonalInfoScreen extends StatelessWidget {
           }
 
           // Dati di default
-          String nome = 'Non inserito';
-          String telefono = 'Non inserito';
-          String cognome = 'Non inserito';
+          String nome = 'N.F.';
+          String telefono = 'N.F.';
+          String cognome = 'N.F.';
 
 
           if (snapshot.hasData && snapshot.data != null &&
               snapshot.data!.exists) {
             var dati = snapshot.data!.data() as Map<String, dynamic>?;
             if (dati != null) {
-              nome = dati['nome'] ?? 'Non inserito';
-              telefono = dati['telefono'] ?? 'Non inserito';
-              cognome = dati['cognome'] ?? 'Non inserito';
+              nome = dati['nome'] ?? 'N.F.';
+              telefono = dati['telefono'] ?? 'N.F.';
+              cognome = dati['cognome'] ?? 'N.F.';
             }
           }
 
           return ListView(
             padding: const EdgeInsets.all(20),
             children: [
-              const Text(
-                'Qui puoi gestire i tuoi dati personali.',
+               Text(
+                'info_d'.i18n(),
                 style: TextStyle(fontSize: 16, color: Colors.black54),
               ),
               const SizedBox(height: 30),
 
               //NOME
               _buildInfoRow(
-                titolo: 'Nome',
+                titolo: 'nome'.i18n(),
                 valore: nome,
                 chiaveDatabase: 'nome',
                 uid: utente.uid,
@@ -70,7 +71,7 @@ class PersonalInfoScreen extends StatelessWidget {
               const Divider(),
               //COGNOME
               _buildInfoRow(
-                titolo: 'Cognome',
+                titolo: 'cognome'.i18n(),
                 valore: cognome,
                 chiaveDatabase: 'cognome',
                 uid: utente.uid,
@@ -79,7 +80,7 @@ class PersonalInfoScreen extends StatelessWidget {
               const Divider(),
               // EMAIL
               _buildInfoRow(
-                titolo: 'Indirizzo email',
+                titolo: 'Email',
                 valore: utente.email ?? 'Nessuna email',
                 // non modificabile al momento
                 chiaveDatabase: null,
@@ -90,7 +91,7 @@ class PersonalInfoScreen extends StatelessWidget {
 
               // TELEFONO
               _buildInfoRow(
-                titolo: 'Numero di telefono',
+                titolo: 'telefono'.i18n(),
                 valore: telefono,
                 chiaveDatabase: 'telefono',
                 uid: utente.uid,
