@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nook/explore.dart';
 import 'package:nook/main.dart';
-import 'package:nook/orders.dart';
+import 'package:nook/search.dart';
 import 'app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'profile.dart';
@@ -96,7 +96,7 @@ class _HomepageScreenState extends State<HomepageScreen>{
                     //  ORDINI
                     IconButton(
                       icon: Icon(
-                        _currentIndex == 1 ? Icons.shopping_bag_rounded : Icons.shopping_bag_outlined,
+                        _currentIndex == 1 ? Icons.search_rounded : Icons.search_outlined,
                         color: Colors.black,
                       ),
                         onPressed: () {
@@ -131,7 +131,7 @@ class _HomepageScreenState extends State<HomepageScreen>{
 
   Widget _buildOrderPage() {
 
-    return const Orders();
+    return const Search();
   }
 
   Widget _buildProfilePage() {

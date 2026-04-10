@@ -29,5 +29,11 @@
   "info_d": "Qui puoi gestire i tuoi dati personali.",
   "explore": "Esplora",
   "pop": "I Più Popolari",
-  "near": "Vicino a Te"
+  "near": "Vicino a Te",
+  "cerca_bnb": "Cerca destinazione o nome...",
+  "nessun_risultato": "Nessun BnB trovato per questa ricerca.",
+  "notte": "a notte",
+  "typing":"Inizia a scrivere per cercare...",
+  "fb": "Nessun risultato trovato. Esplora i migliori",
+  "search":"Cerca"
 }

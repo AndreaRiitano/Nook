@@ -29,5 +29,11 @@
   "info_d": "Here you can manage your personal data.",
   "explore": "Explore",
   "pop": "Most Popular",
-  "near": "Nearby"
+  "near": "Nearby",
+  "cerca_bnb": "Search destination or name...",
+  "nessun_risultato": "No BnBs found for this search.",
+  "notte": "per night",
+  "typing": "Start typing to search...",
+  "fb": "No result found. Explore the best ones",
+  "search": "Search"
 }

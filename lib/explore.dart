@@ -72,7 +72,7 @@ class _ExploreState extends State<Explore>{
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(child: ListView(
-        padding: const EdgeInsets.only(bottom: 100), // Spazio extra in fondo per non farci finire sopra la navbar a fine scroll
+        padding: const EdgeInsets.only(bottom: 100),
         children: [
           // Intestazione della pagina
            Padding(
