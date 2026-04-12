@@ -35,5 +35,11 @@
   "notte": "per night",
   "typing": "Start typing to search...",
   "fb": "No result found. Explore the best ones",
-  "search": "Search"
+  "search": "Search",
+  "descr": "Description",
+  "prenota": "Book",
+  "ospiti": "Guests",
+  "spazio": "Room for",
+  "prezzo": "Total price",
+  "n/": "night"
 }

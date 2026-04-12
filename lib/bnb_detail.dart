@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class BnbDetail extends StatelessWidget {
 
@@ -81,18 +82,18 @@ class BnbDetail extends StatelessWidget {
                   const SizedBox(height: 20),
 
 
-                  const Text('Ospiti', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                   Text('ospiti'.i18n(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10),
                   Row(
                     children: [
                       const Icon(Icons.people_outline, color: Colors.black54),
                       const SizedBox(width: 10),
-                      Text('Spazio per ${bnbData['ospiti'] ?? 2} ospiti', style: const TextStyle(fontSize: 16)),
+                      Text('spazio'.i18n()+' ${bnbData['ospiti'] ?? 2} '+'ospiti'.i18n(), style: const TextStyle(fontSize: 16)),
                     ],
                   ),
                   //PARTE SULLA DESCRIZIONE DA RIVEDERE DOPO
                   const SizedBox(height: 30),
-                  const Text('Descrizione', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                   Text('descr'.i18n(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10),
                   //descrizione a caso rubata giusto per avere un'idea
                   Text(
@@ -124,9 +125,9 @@ class BnbDetail extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Prezzo totale', style: TextStyle(color: Colors.grey, fontSize: 14)),
+                 Text('prezzo'.i18n(), style: TextStyle(color: Colors.grey, fontSize: 14)),
                 Text(
-                    '€${bnbData['prezzo']} / notte',
+                    '€${bnbData['prezzo']} / ' +'n/'.i18n(),
                     style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 20)
                 ),
               ],
@@ -140,7 +141,7 @@ class BnbDetail extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('Prenota', style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
+              child:  Text('prenota'.i18n(), style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
             )
           ],
         ),
