@@ -134,13 +134,18 @@ class _ExploreState extends State<Explore>{
           // estrazione documento
           var listaBnb = snapshot.data!.docs;
 
+
           return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: listaBnb.length,
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             itemBuilder: (context, index) {
 
-              var datiBnb = listaBnb[index].data() as Map<String, dynamic>;
+              // COPIA MODIFICABILE
+              var datiBnb = Map<String, dynamic>.from(listaBnb[index].data() as Map<String, dynamic>);
+
+              // ID
+              datiBnb['id'] = listaBnb[index].id;
 
               return _buildCard(context, datiBnb);
             },
@@ -293,7 +298,12 @@ class _ExploreState extends State<Explore>{
             itemCount: bnbPiuVicini.length,
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             itemBuilder: (context, index) {
-              var datiBnb = bnbPiuVicini[index].data() as Map<String, dynamic>;
+
+              // Copia modificabile
+              var datiBnb = Map<String, dynamic>.from(bnbPiuVicini[index].data() as Map<String, dynamic>);
+
+              // ID
+              datiBnb['id'] = bnbPiuVicini[index].id;
 
               // calcolo della distanza a schermo convertita in km
               double distanzaMetri = Geolocator.distanceBetween(
@@ -301,7 +311,6 @@ class _ExploreState extends State<Explore>{
                   datiBnb['latitudine'], datiBnb['longitudine']
               );
               String distanzaKm = (distanzaMetri / 1000).toStringAsFixed(1);
-
 
               datiBnb['distanza'] = '$distanzaKm km da te';
 

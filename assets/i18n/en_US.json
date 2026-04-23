@@ -41,5 +41,18 @@
   "ospiti": "Guests",
   "spazio": "Room for",
   "prezzo": "Total price",
-  "n/": "night"
+  "n/": "night",
+  "richiesta_prenotazione": "Booking request",
+  "il_tuo_viaggio": "Your trip",
+  "date": "Dates",
+  "aggiungi_date_soggiorno": "Add your travel dates",
+  "aggiungi": "Add",
+  "modifica": "Edit",
+  "dettagli_prezzo": "Price details",
+  "aggiungi_date_info": "Add dates to see the exact price.",
+  "notti_plurale": "nights",
+  "totale_eur": "Total (EUR)",
+  "conferma_paga": "Confirm and pay",
+  "prenotazione_confermata": "Booking confirmed! ",
+  "seleziona_date": "Select dates"
 }

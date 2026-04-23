@@ -41,5 +41,18 @@
   "ospiti": "Ospiti",
   "spazio": "Spazio per",
   "prezzo": "Prezzo totale",
-  "n/": "notte"
+  "n/": "notte",
+  "richiesta_prenotazione": "Richiesta di prenotazione",
+  "il_tuo_viaggio": "Il tuo viaggio",
+  "date": "Date",
+  "aggiungi_date_soggiorno": "Aggiungi le date del soggiorno",
+  "aggiungi": "Aggiungi",
+  "modifica": "Modifica",
+  "dettagli_prezzo": "Dettagli del prezzo",
+  "aggiungi_date_info": "Aggiungi le date per vedere il prezzo esatto.",
+  "notti_plurale": "notti",
+  "totale_eur": "Totale (EUR)",
+  "conferma_paga": "Conferma e paga",
+  "prenotazione_confermata": "Prenotazione confermata!",
+  "seleziona_date": "Seleziona le date"
 }

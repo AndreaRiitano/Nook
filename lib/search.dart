@@ -171,7 +171,11 @@ class _SearchState extends State<Search>{
               padding: const EdgeInsets.all(16),
               itemCount: _risultati!.length,
               itemBuilder: (context, index) {
-                var bnb = _risultati![index].data() as Map<String, dynamic>;
+
+                var bnb = Map<String, dynamic>.from(_risultati![index].data() as Map<String, dynamic>);
+
+                bnb['id'] = _risultati![index].id;
+
                 return _buildBnbCard(bnb);
               },
             ),

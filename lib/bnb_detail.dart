@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'booking_screen.dart';
 
 class BnbDetail extends StatelessWidget {
 
@@ -134,7 +135,14 @@ class BnbDetail extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // QUI POI CI DEVO METTERE LA ROBA PER PRENOTARE
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                builder: (context) => BookingScreen(
+                bnbData: bnbData,
+                    ),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
