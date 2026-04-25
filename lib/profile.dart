@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'personal_info.dart';
 import 'package:localization/localization.dart';
-
+import 'my_bookings_screen.dart';
 
 class Profile extends StatefulWidget {
 
@@ -119,7 +119,20 @@ class _ProfileState extends State<Profile>{
               },
             ),
 
-            _buildListTile(Icons.question_mark_outlined, 'deciderò dopo cosa mettere'),
+            // LE MIE PRENOTAZIONI
+
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.flight_takeoff, color: Colors.black87),
+              title: Text('i_tuoi_viaggi'.i18n()),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyBookingsScreen()),
+                );
+              },
+            ),
 
             //LINGUA
             ListTile(

@@ -54,5 +54,11 @@
   "totale_eur": "Totale (EUR)",
   "conferma_paga": "Conferma e paga",
   "prenotazione_confermata": "Prenotazione confermata!",
-  "seleziona_date": "Seleziona le date"
+  "seleziona_date": "Seleziona le date",
+  "i_tuoi_viaggi": "I tuoi viaggi",
+  "nessuna_prenotazione": "Non hai ancora nessuna prenotazione.",
+  "dal": "Dal",
+  "al": "al",
+  "totale_pagato": "Totale",
+  "confermata": "Confermata"
 }

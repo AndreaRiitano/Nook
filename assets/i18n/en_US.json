@@ -54,5 +54,11 @@
   "totale_eur": "Total (EUR)",
   "conferma_paga": "Confirm and pay",
   "prenotazione_confermata": "Booking confirmed! ",
-  "seleziona_date": "Select dates"
+  "seleziona_date": "Select dates",
+  "i_tuoi_viaggi": "Your trips",
+  "nessuna_prenotazione": "You don't have any bookings yet.",
+  "dal": "From",
+  "al": "to",
+  "totale_pagato": "Total",
+  "confermata": "Confirmed"
 }
