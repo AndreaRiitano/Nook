@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
+import 'booking_detail_screen.dart';
 
 class MyBookingsScreen extends StatelessWidget {
   const MyBookingsScreen({super.key});
@@ -60,15 +61,35 @@ class MyBookingsScreen extends StatelessWidget {
             var dataA = (a.data() as Map<String, dynamic>)['dataPrenotazione'] as Timestamp?;
             var dataB = (b.data() as Map<String, dynamic>)['dataPrenotazione'] as Timestamp?;
             if (dataA == null || dataB == null) return 0;
-            return dataB.compareTo(dataA); // Ordine decrescente
+            return dataB.compareTo(dataA);
           });
+
 
           return ListView.builder(
             padding: const EdgeInsets.all(20),
             itemCount: prenotazioni.length,
             itemBuilder: (context, index) {
-              var datiPrenotazione = prenotazioni[index].data() as Map<String, dynamic>;
-              return _buildPrenotazioneCard(datiPrenotazione);
+              var doc = prenotazioni[index];
+              var datiPrenotazione = doc.data() as Map<String, dynamic>;
+              String idDellaPrenotazione = doc.id;
+
+
+              return InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: () {
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookingDetailScreen(
+                        datiPrenotazione: datiPrenotazione,
+                        prenotazioneId: idDellaPrenotazione,
+                      ),
+                    ),
+                  );
+                },
+                child: _buildPrenotazioneCard(datiPrenotazione),
+              );
             },
           );
         },
@@ -89,7 +110,7 @@ class MyBookingsScreen extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade200),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

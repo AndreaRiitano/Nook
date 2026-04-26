@@ -60,5 +60,14 @@
   "dal": "From",
   "al": "to",
   "totale_pagato": "Total",
-  "confermata": "Confirmed"
+  "confermata": "Confirmed",
+  "dettagli_prenotazione": "Booking Details",
+  "lascia_recensione": "Leave a review",
+  "scrivi_qui": "Tell us about your experience here...",
+  "invia_recensione": "Submit review",
+  "recensione_inviata": "Review submitted, thank you!",
+  "gia_recensito": "You have already reviewed this stay. Thank you!",
+  "recensioni_titolo": "What guests are saying",
+  "nessuna_recensione_ancora": "No reviews yet for this property. Be the first!",
+  "stelle": "stars"
 }

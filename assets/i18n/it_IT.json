@@ -60,5 +60,14 @@
   "dal": "Dal",
   "al": "al",
   "totale_pagato": "Totale",
-  "confermata": "Confermata"
+  "confermata": "Confermata",
+  "dettagli_prenotazione": "Dettagli Prenotazione",
+  "lascia_recensione": "Lascia una recensione",
+  "scrivi_qui": "Racconta la tua esperienza qui...",
+  "invia_recensione": "Invia recensione",
+  "recensione_inviata": "Recensione inviata, grazie!",
+  "gia_recensito": "Hai già recensito questo soggiorno. Grazie!",
+  "recensioni_titolo": "Cosa dicono gli ospiti",
+  "nessuna_recensione_ancora": "Ancora nessuna recensione per questa struttura. Sii il primo!",
+  "stelle": "stelle"
 }
