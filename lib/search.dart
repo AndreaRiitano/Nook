@@ -16,6 +16,37 @@ class _SearchState extends State<Search>{
   List<DocumentSnapshot>? _risultati;
   bool _staCercando = false;
   bool _isFallback = false;
+  String _ordinamentoCorrente = 'rilevanza';
+
+
+  void _applicaOrdinamento() {
+    if (_risultati == null || _risultati!.isEmpty) return;
+
+    setState(() {
+      _risultati!.sort((a, b) {
+        var dataA = a.data() as Map<String, dynamic>;
+        var dataB = b.data() as Map<String, dynamic>;
+
+        if (_ordinamentoCorrente == 'prezzo_cresc') {
+          int prezzoA = dataA['prezzo'] ?? 0;
+          int prezzoB = dataB['prezzo'] ?? 0;
+          return prezzoA.compareTo(prezzoB); // Dal più economico al più costoso
+
+        } else if (_ordinamentoCorrente == 'prezzo_decr') {
+          int prezzoA = dataA['prezzo'] ?? 0;
+          int prezzoB = dataB['prezzo'] ?? 0;
+          return prezzoB.compareTo(prezzoA); // Dal più costoso al più economico
+
+        } else if (_ordinamentoCorrente == 'migliori_voti') {
+          double valA = (dataA['valutazione'] ?? 0.0).toDouble();
+          double valB = (dataB['valutazione'] ?? 0.0).toDouble();
+          return valB.compareTo(valA); // Dal voto più alto al più basso
+        }
+
+        return 0; // Nessun ordinamento specifico (rilevanza)
+      });
+    });
+  }
 
   void _eseguiRicercaLogica(String query) async {
     if (query.isEmpty) return;
@@ -60,6 +91,11 @@ class _SearchState extends State<Search>{
         _staCercando = false;
       });
     }
+    _applicaOrdinamento();
+
+    setState(() {
+      _staCercando = false;
+    });
   }
 
   @override
@@ -113,7 +149,75 @@ class _SearchState extends State<Search>{
                   ),
                 ),
               ),
+
             ),
+
+            if (_risultati != null && _risultati!.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'ordina_per'.i18n(),
+                      style: TextStyle(fontSize: 14, color: Colors.grey.shade700, fontWeight: FontWeight.bold),
+                    ),
+
+                    DropdownMenu<String>(
+
+                      initialSelection: _ordinamentoCorrente,
+
+
+                      enableSearch: false,
+                      enableFilter: false,
+                      requestFocusOnTap: false,
+
+                      textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+
+
+                      inputDecorationTheme: InputDecorationTheme(
+
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide.none,
+                        ),
+
+                        isDense: true,
+                      ),
+                      menuStyle: MenuStyle(
+                        backgroundColor: WidgetStateProperty.all(Colors.white),
+                        elevation: WidgetStateProperty.all(4),
+                        shape: WidgetStateProperty.all(
+                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        ),
+                      ),
+
+                      dropdownMenuEntries: [
+                        DropdownMenuEntry(value: 'rilevanza', label: 'rilevanza'.i18n()),
+                        DropdownMenuEntry(value: 'prezzo_cresc', label: 'prezzo_cresc'.i18n()),
+                        DropdownMenuEntry(value: 'prezzo_decr', label: 'prezzo_decr'.i18n()),
+                        DropdownMenuEntry(value: 'migliori_voti', label: 'migliori_voti'.i18n()),
+                      ],
+
+
+                      onSelected: (String? nuovoValore) {
+                        if (nuovoValore != null && nuovoValore != _ordinamentoCorrente) {
+                          FocusScope.of(context).unfocus();
+
+                          setState(() {
+                            _ordinamentoCorrente = nuovoValore;
+                          });
+
+                          _applicaOrdinamento();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
 
 
             Expanded(

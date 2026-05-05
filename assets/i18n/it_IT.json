@@ -69,5 +69,10 @@
   "gia_recensito": "Hai già recensito questo soggiorno. Grazie!",
   "recensioni_titolo": "Cosa dicono gli ospiti",
   "nessuna_recensione_ancora": "Ancora nessuna recensione per questa struttura. Sii il primo!",
-  "stelle": "stelle"
+  "stelle": "stelle",
+  "ordina_per": "Ordina per:",
+  "rilevanza": "Rilevanza",
+  "prezzo_cresc": "Prezzo (più basso)",
+  "prezzo_decr": "Prezzo (più alto)",
+  "migliori_voti": "Miglior valutazione"
 }
