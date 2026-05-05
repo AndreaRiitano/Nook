@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
+import 'package:nook/model/managers/DatabaseManager.dart';
 
 class BookingDetailScreen extends StatefulWidget {
   final Map<String, dynamic> datiPrenotazione;
@@ -22,7 +22,6 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
   @override
   void initState() {
     super.initState();
-
     _haRecensito = widget.datiPrenotazione['haRecensito'] ?? false;
   }
 
@@ -33,37 +32,13 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
     setState(() => _staInviando = true);
 
     try {
-      String userId = FirebaseAuth.instance.currentUser!.uid;
-      final utenteAttuale = FirebaseAuth.instance.currentUser!;
-      String nomeDaSalvare = "Viaggiatore";
 
-      var userDoc = await FirebaseFirestore.instance.collection('utenti').doc(utenteAttuale.email).get();
-
-      if (userDoc.exists) {
-        var userData = userDoc.data() as Map<String, dynamic>;
-        String nome = userData['nome'] ?? '';
-        String cognome = userData['cognome'] ?? '';
-
-        if (nome.isNotEmpty || cognome.isNotEmpty) {
-          nomeDaSalvare = "$nome $cognome".trim();
-        }
-      }
-
-
-      await FirebaseFirestore.instance.collection('recensioni').add({
-        'bnbId': widget.datiPrenotazione['bnbId'],
-        'prenotazioneId': widget.prenotazioneId,
-        'userId': userId,
-        'nomeUtente': nomeDaSalvare,
-        'voto': _votoSelezionato,
-        'testo': _recensioneController.text.trim(),
-        'data': FieldValue.serverTimestamp(),
-      });
-
-
-      await FirebaseFirestore.instance.collection('prenotazioni').doc(widget.prenotazioneId).update({
-        'haRecensito': true,
-      });
+      await DatabaseManager().inviaRecensionePerPrenotazione(
+        bnbId: widget.datiPrenotazione['bnbId'],
+        prenotazioneId: widget.prenotazioneId,
+        voto: _votoSelezionato,
+        testo: _recensioneController.text.trim(),
+      );
 
       if (mounted) {
         setState(() {
@@ -80,6 +55,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
       if (mounted) setState(() => _staInviando = false);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -163,11 +139,9 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                 ),
               )
             else
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(5, (index) {

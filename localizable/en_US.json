@@ -74,5 +74,12 @@
   "rilevanza": "Relevance",
   "prezzo_cresc": "Price (Lowest first)",
   "prezzo_decr": "Price (Highest first)",
-  "migliori_voti": "Top rated"
+  "migliori_voti": "Top rated",
+  "err_generic": "An unexpected error occurred.",
+  "err_weak_password": "The password is too weak (minimum 6 characters).",
+  "err_email_used": "An account already exists with this email.",
+  "err_invalid_email": "The email format is invalid.",
+  "err_user_disabled": "This account has been disabled.",
+  "err_wrong_credentials": "Invalid email or password.",
+  "err_no_results_fallback": "No results found for this search. Here are our recommendations:"
 }

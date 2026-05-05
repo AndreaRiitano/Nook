@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localization/localization.dart';
-import 'booking_detail_screen.dart';
+import 'package:nook/model/managers/DatabaseManager.dart';
+import 'BookingDetailScreen.dart';
 
 class MyBookingsScreen extends StatelessWidget {
   const MyBookingsScreen({super.key});
@@ -23,24 +24,19 @@ class MyBookingsScreen extends StatelessWidget {
         ),
       ),
 
-      // Controllo di sicurezza
+
       body: utente == null
           ? const Center(child: Text("Devi effettuare l'accesso per vedere i tuoi viaggi."))
 
-          : StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('prenotazioni')
-            .where('userId', isEqualTo: utente.uid)
-            .snapshots(),
+
+          : StreamBuilder<List<Map<String, dynamic>>>(
+        stream: DatabaseManager().getLeMiePrenotazioni(),
         builder: (context, snapshot) {
-
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -56,28 +52,19 @@ class MyBookingsScreen extends StatelessWidget {
             );
           }
 
-          var prenotazioni = snapshot.data!.docs;
-          prenotazioni.sort((a, b) {
-            var dataA = (a.data() as Map<String, dynamic>)['dataPrenotazione'] as Timestamp?;
-            var dataB = (b.data() as Map<String, dynamic>)['dataPrenotazione'] as Timestamp?;
-            if (dataA == null || dataB == null) return 0;
-            return dataB.compareTo(dataA);
-          });
 
+          final prenotazioni = snapshot.data!;
 
           return ListView.builder(
             padding: const EdgeInsets.all(20),
             itemCount: prenotazioni.length,
             itemBuilder: (context, index) {
-              var doc = prenotazioni[index];
-              var datiPrenotazione = doc.data() as Map<String, dynamic>;
-              String idDellaPrenotazione = doc.id;
-
+              var datiPrenotazione = prenotazioni[index];
+              String idDellaPrenotazione = datiPrenotazione['idPrenotazione'];
 
               return InkWell(
                 borderRadius: BorderRadius.circular(16),
                 onTap: () {
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -101,6 +88,8 @@ class MyBookingsScreen extends StatelessWidget {
     DateTime checkIn = (dati['checkIn'] as Timestamp).toDate();
     DateTime checkOut = (dati['checkOut'] as Timestamp).toDate();
 
+    bool haImmagine = dati['immagineBnb'] != null && dati['immagineBnb'].toString().trim().isNotEmpty;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(12),
@@ -122,24 +111,23 @@ class MyBookingsScreen extends StatelessWidget {
 
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              dati['immagineBnb'] ?? '',
+            child: haImmagine
+                ? Image.network(
+              dati['immagineBnb'],
               width: 90,
               height: 90,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) =>
-                  Container(width: 90, height: 90, color: Colors.grey.shade200, child: const Icon(Icons.image, color: Colors.grey)),
-            ),
+                  Container(width: 90, height: 90, color: Colors.grey.shade200, child: const Icon(Icons.image_not_supported, color: Colors.grey)),
+            )
+                : Container(width: 90, height: 90, color: Colors.grey.shade200, child: const Icon(Icons.image_not_supported, color: Colors.grey)),
           ),
           const SizedBox(width: 16),
-
 
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +147,7 @@ class MyBookingsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                          'confermata'.i18n(),
+                          dati['stato'] != null ? dati['stato'].toString().i18n() : 'confermata'.i18n(),
                           style: TextStyle(color: Colors.green.shade700, fontSize: 10, fontWeight: FontWeight.bold)
                       ),
                     )

@@ -74,5 +74,12 @@
   "rilevanza": "Rilevanza",
   "prezzo_cresc": "Prezzo (più basso)",
   "prezzo_decr": "Prezzo (più alto)",
-  "migliori_voti": "Miglior valutazione"
+  "migliori_voti": "Miglior valutazione",
+  "err_generic": "Si è verificato un errore imprevisto.",
+  "err_weak_password": "La password è troppo debole (minimo 6 caratteri).",
+  "err_email_used": "Esiste già un account Nook con questa email.",
+  "err_invalid_email": "Il formato dell'email non è valido.",
+  "err_user_disabled": "Questo account è stato disabilitato.",
+  "err_wrong_credentials": "Email o password non corretti.",
+  "err_no_results_fallback": "Nessun risultato trovato per questa ricerca. Ecco i nostri consigli per te!"
 }

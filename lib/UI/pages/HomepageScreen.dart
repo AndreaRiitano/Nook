@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nook/explore.dart';
-import 'package:nook/main.dart';
-import 'package:nook/search.dart';
-import 'app_theme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'profile.dart';
+import 'Explore.dart';
+import 'Search.dart';
+import 'Profile.dart';
+
 class HomepageScreen extends StatefulWidget{
 
   const HomepageScreen({super.key});

@@ -3,23 +3,24 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:localization/localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'app_theme.dart';
-import 'login_screen.dart';
-import 'register_screen.dart';
-import 'firebase_options.dart';
-import 'auth_gate.dart';
+import 'UI/aspects/AppTheme.dart';
+import 'UI/pages/LoginScreen.dart';
+import 'UI/pages/RegisterScreen.dart';
+import 'model/aspects/firebase_options.dart';
+import 'UI/behavior/AuthGate.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  print('1');
 
-
-  LocalJsonLocalization.delegate.directories = ['assets/i18n'];
-
+  LocalJsonLocalization.delegate.directories = ['localizable'];
+  print('2');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  print('3');
   runApp(const MyApp());
+  print('4');
 }
 
 
@@ -75,6 +76,7 @@ class _MyAppState extends State<MyApp> {
       locale: _linguaAttuale,
 
       localizationsDelegates: [
+
         LocalJsonLocalization.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
