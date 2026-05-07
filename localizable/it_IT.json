@@ -81,5 +81,14 @@
   "err_invalid_email": "Il formato dell'email non è valido.",
   "err_user_disabled": "Questo account è stato disabilitato.",
   "err_wrong_credentials": "Email o password non corretti.",
-  "err_no_results_fallback": "Nessun risultato trovato per questa ricerca. Ecco i nostri consigli per te!"
+  "err_no_results_fallback": "Nessun risultato trovato per questa ricerca. Ecco i nostri consigli per te!",
+  "la_tua_recensione": "La tua recensione",
+  "stai_modificando_recensione": "Stai modificando la tua recensione",
+  "annulla": "Annulla",
+  "aggiorna": "Aggiorna",
+  "elimina": "Elimina",
+  "titolo_elimina_recensione": "Elimina Recensione",
+  "conferma_elimina_recensione": "Sei sicuro di voler eliminare questa recensione?",
+  "recensione_salvata_successo": "Recensione salvata con successo!",
+  "recensione_eliminata": "Recensione eliminata."
 }

@@ -7,7 +7,6 @@ import 'BookingDetailScreen.dart';
 
 class MyBookingsScreen extends StatelessWidget {
   const MyBookingsScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final utente = FirebaseAuth.instance.currentUser;

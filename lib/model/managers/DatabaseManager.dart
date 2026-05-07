@@ -350,4 +350,49 @@ class DatabaseManager {
       return lista;
     });
   }
+
+  /// Recupera la recensione specifica di una prenotazione
+  Future<Map<String, dynamic>?> getRecensioneByPrenotazione(String prenotazioneId) async {
+    try {
+      var snapshot = await _firestore
+          .collection('recensioni')
+          .where('prenotazioneId', isEqualTo: prenotazioneId)
+          .limit(1)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        var dati = snapshot.docs.first.data();
+        dati['id'] = snapshot.docs.first.id;
+        return dati;
+      }
+    } catch (e) {
+      print("Errore nel recupero della recensione: $e");
+    }
+    return null;
+  }
+
+  /// Aggiorna una recensione esistente
+  Future<void> modificaRecensione({
+    required String recensioneId,
+    required int nuovoVoto,
+    required String nuovoTesto,
+  }) async {
+    await _firestore.collection('recensioni').doc(recensioneId).update({
+      'voto': nuovoVoto,
+      'testo': nuovoTesto,
+      'data': FieldValue.serverTimestamp(),
+    });
+  }
+
+  /// Elimina una recensione e sblocca di nuovo la prenotazione
+  Future<void> eliminaRecensione({
+    required String recensioneId,
+    required String prenotazioneId,
+  }) async {
+    await _firestore.collection('recensioni').doc(recensioneId).delete();
+
+    await _firestore.collection('prenotazioni').doc(prenotazioneId).update({
+      'haRecensito': false,
+    });
+  }
 }
