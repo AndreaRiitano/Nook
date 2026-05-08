@@ -2,151 +2,108 @@ import 'package:flutter/material.dart';
 import 'Explore.dart';
 import 'Search.dart';
 import 'Profile.dart';
+import '../aspects/AppTheme.dart';
 
-class HomepageScreen extends StatefulWidget{
-
+class HomepageScreen extends StatefulWidget {
   const HomepageScreen({super.key});
 
   @override
   State<HomepageScreen> createState() => _HomepageScreenState();
-
 }
 
-class _HomepageScreenState extends State<HomepageScreen>{
+class _HomepageScreenState extends State<HomepageScreen> {
   int _currentIndex = 0;
 
-
   @override
-  Widget build (BuildContext context){
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    final navBarColor = isDark ? const Color(0xFF333333) : Colors.white;
+    final iconColor = theme.colorScheme.onSurface;
 
     return Scaffold(
       extendBody: true,
-    /*  appBar: AppBar(
-          title: const Text('Nook Home'),
-          actions: [
-      // TASTO LOGOUT
-      IconButton(
-      icon: const Icon(Icons.logout),
-      onPressed: () async {
+      backgroundColor: theme.scaffoldBackgroundColor,
 
-        await FirebaseAuth.instance.signOut();
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const WelcomePage()),
-              (Route<dynamic> route) => false,
-        );
-      },
-      )
-      ]
-    ),*/
-    //APPBAR CHE NON SERVIRÀ PIÙ, CODICE QUA DA USARE FINO A QUANDO NON SARÀ IMPLEMENTATO UN VERO LOGOUT
-    // ho implementato un logout vero ma mi dispiace togliere questo blocco, mi ci sono affezionato
+      body: Stack(
+        children: [
+          Positioned.fill(child: _getCurrentPage()),
 
-    backgroundColor: Colors.white,
-
-    body: Stack(
-      children: [
-
-        Positioned.fill(child:  _getCurrentPage()),
-
-        Positioned(
+          Positioned(
             left: 10,
             right: 10,
             bottom: 0,
-            child:Container(
-
-
-
-
-            // distanza dai margini dello schermo
-              margin:  EdgeInsets.only(left: 20, right: 20, bottom: 15 + MediaQuery.of(context).padding.bottom), //aggiungo al margine basso la barra del telefono se esiste, sennò è +0
+            child: Container(
+              margin: EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  bottom: 15 + MediaQuery.of(context).padding.bottom
+              ),
               height: 55,
-              // forma e ombra della box
               decoration: BoxDecoration(
-               color: Colors.white,
-               borderRadius: BorderRadius.circular(50),
-               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.2), // Ombra leggera
-                  blurRadius: 15,
-                 offset: const Offset(0, 8),
-                ),
-              ],
+                color: navBarColor,
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    color: isDark ? Colors.black.withValues(alpha: 0.5) : Colors.black.withValues(alpha: 0.2),
+                    blurRadius: 15,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
               ),
 
-              // contenuto
               child: Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                 children: [
-
-                    //  ESPLORA
-                    IconButton(
-                      icon: Icon(
-                        _currentIndex == 0 ? Icons.explore_rounded : Icons.explore_outlined,
-                        color: Colors.black,
-                      ),
-                        onPressed: () {
-                        setState(() { _currentIndex = 0; });
-                      },
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      _currentIndex == 0 ? Icons.explore_rounded : Icons.explore_outlined,
+                      color: iconColor,
                     ),
+                    onPressed: () {
+                      setState(() { _currentIndex = 0; });
+                    },
+                  ),
 
-                    //  ORDINI
-                    IconButton(
-                      icon: Icon(
-                        _currentIndex == 1 ? Icons.search_rounded : Icons.search_outlined,
-                        color: Colors.black,
-                      ),
-                        onPressed: () {
-                        setState(() { _currentIndex = 1; });
-                      },
+                  IconButton(
+                    icon: Icon(
+                      _currentIndex == 1 ? Icons.search_rounded : Icons.search_outlined,
+                      color: iconColor,
                     ),
+                    onPressed: () {
+                      setState(() { _currentIndex = 1; });
+                    },
+                  ),
 
-                  //  PROFILO
                   IconButton(
                     icon: Icon(
                       _currentIndex == 2 ? Icons.person_rounded : Icons.person_outline,
-                      color: Colors.black,
+                      color: iconColor,
                     ),
-                      onPressed: () {
+                    onPressed: () {
                       setState(() { _currentIndex = 2; });
                     },
                   ),
-               ],
-            ),
+                ],
               ),
-        ),
-
-      ]
-     )
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-
-  Widget _buildExplorePage() {
-    return const Explore();
-  }
-
-  Widget _buildOrderPage() {
-
-    return const Search();
-  }
-
-  Widget _buildProfilePage() {
-    return const Profile();
-  }
+  Widget _buildExplorePage() => const Explore();
+  Widget _buildOrderPage() => const Search();
+  Widget _buildProfilePage() => const Profile();
 
   Widget _getCurrentPage() {
     switch (_currentIndex) {
-      case 0:
-        return _buildExplorePage();
-      case 1:
-        return _buildOrderPage();
-      case 2:
-        return _buildProfilePage();
-      default:
-        return _buildExplorePage();
+      case 0: return _buildExplorePage();
+      case 1: return _buildOrderPage();
+      case 2: return _buildProfilePage();
+      default: return _buildExplorePage();
     }
   }
-
-
 }

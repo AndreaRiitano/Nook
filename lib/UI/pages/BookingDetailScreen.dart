@@ -151,12 +151,10 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: Text('dettagli_prenotazione'.i18n(), style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        iconTheme:  IconThemeData(color: Theme.of(context).colorScheme.primary),
+        title: Text('dettagli_prenotazione'.i18n(), style:  TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -165,7 +163,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
           children: [
             _buildRiepilogoPrenotazione(),
             const Padding(padding: EdgeInsets.symmetric(vertical: 25), child: Divider()),
-            Text('la_tua_recensione'.i18n(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text('la_tua_recensione'.i18n(), style:  TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)),
             const SizedBox(height: 20),
 
 
@@ -195,7 +193,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
               : Container(width: double.infinity, height: 200, color: Colors.grey.shade200, child: const Icon(Icons.image_not_supported)),
         ),
         const SizedBox(height: 20),
-        Text(widget.datiPrenotazione['titoloBnb'] ?? '', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(widget.datiPrenotazione['titoloBnb'] ?? '', style:  TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)),
         const SizedBox(height: 10),
         Row(
           children: [
@@ -224,7 +222,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
   Widget _buildRecensionePubblicata() {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.grey.shade50, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.grey.shade200)),
+      decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.grey.shade200)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -245,7 +243,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          Text(_recensioneEsistente!['testo'] ?? '', style: const TextStyle(fontSize: 15, height: 1.4)),
+          Text(_recensioneEsistente!['testo'] ?? '', style:  TextStyle(fontSize: 15, height: 1.4, color: Theme.of(context).colorScheme.primary)),
         ],
       ),
     );
@@ -277,7 +275,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
           maxLines: 4,
           decoration: InputDecoration(
             hintText: 'scrivi_qui'.i18n(),
-            filled: true, fillColor: Colors.grey.shade100,
+            filled: true, fillColor: Theme.of(context).hintColor,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
           ),
         ),
@@ -302,12 +300,12 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
               child: ElevatedButton(
                 onPressed: _staInviando ? null : _salvaRecensione,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black, padding: const EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: Theme.of(context).colorScheme.primary, padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 child: _staInviando
                     ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                    : Text(_isEditing ? 'Aggiorna' : 'invia_recensione'.i18n(), style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
+                    : Text(_isEditing ? 'Aggiorna' : 'invia_recensione'.i18n(), style:  TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold)),
               ),
             ),
           ],

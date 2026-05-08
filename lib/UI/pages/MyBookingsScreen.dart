@@ -12,16 +12,15 @@ class MyBookingsScreen extends StatelessWidget {
     final utente = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme:  IconThemeData(color: Theme.of(context).colorScheme.primary),
         title: Text(
           'i_tuoi_viaggi'.i18n(),
-          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style:  TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
         ),
       ),
+
 
 
       body: utente == null
@@ -74,7 +73,7 @@ class MyBookingsScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: _buildPrenotazioneCard(datiPrenotazione),
+                child: _buildPrenotazioneCard(datiPrenotazione, context),
               );
             },
           );
@@ -83,7 +82,7 @@ class MyBookingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPrenotazioneCard(Map<String, dynamic> dati) {
+  Widget _buildPrenotazioneCard(Map<String, dynamic> dati, BuildContext context) {
     DateTime checkIn = (dati['checkIn'] as Timestamp).toDate();
     DateTime checkOut = (dati['checkOut'] as Timestamp).toDate();
 
@@ -93,12 +92,12 @@ class MyBookingsScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: Theme.of(context).hintColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -134,7 +133,7 @@ class MyBookingsScreen extends StatelessWidget {
                     Expanded(
                       child: Text(
                         dati['titoloBnb'] ?? 'BnB',
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style:  TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -175,7 +174,7 @@ class MyBookingsScreen extends StatelessWidget {
                     Text('totale_pagato'.i18n(), style: TextStyle(color: Colors.grey.shade600, fontSize: 14)),
                     Text(
                       '€${dati['prezzoTotale']}',
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Theme.of(context).colorScheme.primary),
                     ),
                   ],
                 ),

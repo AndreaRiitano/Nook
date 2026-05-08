@@ -12,14 +12,12 @@ class PersonalInfoScreen extends StatelessWidget {
     final utenteAuth = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           'info'.i18n(),
-          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
       body: utenteAuth == null
@@ -40,11 +38,11 @@ class PersonalInfoScreen extends StatelessWidget {
           return ListView(
             padding: const EdgeInsets.all(20),
             children: [
-              _buildInfoTile('nome'.i18n(), user.nome),
-              _buildInfoTile('cognome'.i18n(), user.cognome),
-              _buildInfoTile('email'.i18n(), user.email),
-              _buildInfoTile('data_nascita'.i18n(), user.dataDiNascita),
-              _buildInfoTile('genere'.i18n(), user.genere),
+              _buildInfoTile('nome'.i18n(), user.nome, context),
+              _buildInfoTile('cognome'.i18n(), user.cognome, context),
+              _buildInfoTile('Email', user.email, context),
+              _buildInfoTile('nascita'.i18n(), user.dataDiNascita, context),
+              _buildInfoTile('genere'.i18n(), user.genere, context),
 
               const SizedBox(height: 40),
               Text(
@@ -60,7 +58,7 @@ class PersonalInfoScreen extends StatelessWidget {
   }
 
 
-  Widget _buildInfoTile(String label, String value) {
+  Widget _buildInfoTile(String label, String value, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
       child: Column(
@@ -68,7 +66,7 @@ class PersonalInfoScreen extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(color: Colors.grey, fontSize: 14),
+            style:Theme.of(context).textTheme.labelLarge,
           ),
           const SizedBox(height: 5),
           Text(

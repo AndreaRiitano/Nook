@@ -13,9 +13,8 @@ class ReviewTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: Theme.of(context).hintColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,8 +38,9 @@ class ReviewTile extends StatelessWidget {
                 }
 
                 return Row(
+
                   children: [
-                    // Avatar con Iniziale dinamica
+                    // Avatar
                     CircleAvatar(
                       backgroundColor: Colors.teal.shade100,
                       child: Text(
@@ -50,14 +50,13 @@ class ReviewTile extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
 
-                    // Nome vero e Data
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                               nomeVisualizzato,
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
+                              style: Theme.of(context).textTheme.titleSmall
                           ),
                           Text(
                             "${review.data.day}/${review.data.month}/${review.data.year}",
@@ -77,7 +76,7 @@ class ReviewTile extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             review.valutazione.toString(),
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+                            style:  TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                           ),
                         ],
                       ),
@@ -92,7 +91,7 @@ class ReviewTile extends StatelessWidget {
           // Testo del commento
           Text(
             review.commento,
-            style: const TextStyle(fontSize: 14, color: Colors.black87, height: 1.4),
+            style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.onSurface, height: 1.4),
           ),
         ],
       ),

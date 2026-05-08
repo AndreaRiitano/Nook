@@ -76,7 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: Text('accedi'.i18n(), style: const TextStyle(fontSize: 25)),
@@ -91,13 +90,13 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: AppTheme.textBoxDecoEmail,
+                decoration: AppTheme.textBoxDecoEmail(context)
               ),
               const SizedBox(height: 35),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: AppTheme.textBoxDecoPassword,
+                decoration: AppTheme.textBoxDecoPassword(context),
               ),
               const SizedBox(height: 80),
               SizedBox(

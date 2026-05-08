@@ -14,7 +14,7 @@ class BnbDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -48,7 +48,7 @@ class BnbDetail extends StatelessWidget {
                       Expanded(
                         child: Text(
                           bnb.titolo,
-                          style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, height: 1.2),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
                       Row(
@@ -83,11 +83,11 @@ class BnbDetail extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   // Ospiti
-                  Text('ospiti'.i18n(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text('ospiti'.i18n(), style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      const Icon(Icons.people_outline, color: Colors.black54),
+                       Icon(Icons.people_outline, color: Theme.of(context).colorScheme.onSurface),
                       const SizedBox(width: 10),
                       Text('${'spazio'.i18n()} 2 ${'ospiti'.i18n()}', style: const TextStyle(fontSize: 16)),
                     ],
@@ -96,11 +96,11 @@ class BnbDetail extends StatelessWidget {
                   const SizedBox(height: 30),
 
                   // Descrizione
-                  Text('descr'.i18n(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text('descr'.i18n(), style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 10),
                   Text(
                     bnb.descrizione.isNotEmpty ? bnb.descrizione : 'Goditi un soggiorno indimenticabile...',
-                    style: TextStyle(fontSize: 16, color: Colors.grey.shade700, height: 1.5),
+                    style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurface, height: 1.5),
                   ),
 
                   const SizedBox(height: 30),
@@ -108,7 +108,7 @@ class BnbDetail extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   // Sezione Recensioni
-                  Text('recensioni_titolo'.i18n(), style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  Text('recensioni_titolo'.i18n(), style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 20),
 
 
@@ -156,8 +156,8 @@ class BnbDetail extends StatelessWidget {
           bottom: 15 + MediaQuery.of(context).padding.bottom
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: Colors.grey.shade200)),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        border: Border(top: BorderSide(color: Theme.of(context).hintColor)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,11 +180,11 @@ class BnbDetail extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
-            child: Text('prenota'.i18n(), style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
+            child: Text('prenota'.i18n(), style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold)),
           )
         ],
       ),

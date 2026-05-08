@@ -18,11 +18,11 @@ class BnbCard extends StatelessWidget {
         width: 170,
         margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withValues(alpha: 0.08),
+                color: Colors.black.withValues(alpha: 0.15),
                 blurRadius: 10,
                 offset: const Offset(0, 5)
             )
@@ -50,7 +50,7 @@ class BnbCard extends StatelessWidget {
                 children: [
                   Text(
                       bnb.titolo,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                      style: Theme.of(context).textTheme.labelLarge,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis
                   ),
@@ -64,14 +64,14 @@ class BnbCard extends StatelessWidget {
                     children: [
                       Text(
                           '€${bnb.prezzo} / notte',
-                          style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 13)
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 13, color: Theme.of(context).colorScheme.primary)
                       ),
                       Row(
                         children: [
                           const Icon(Icons.star_rounded, color: Colors.amber, size: 16),
                           Text(
                               '${bnb.valutazione}',
-                              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)
+                              style:  TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)
                           ),
                         ],
                       )

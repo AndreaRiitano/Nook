@@ -43,7 +43,6 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -67,7 +66,7 @@ class _SearchState extends State<Search> {
         decoration: InputDecoration(
           hintText: 'cerca_bnb'.i18n(),
           filled: true,
-          fillColor: Colors.grey.shade100,
+          fillColor: Theme.of(context).hintColor,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(50), borderSide: BorderSide.none),
           suffixIcon: IconButton(
             icon: const Icon(Icons.search),
@@ -82,7 +81,7 @@ class _SearchState extends State<Search> {
 
   Widget _buildAreaRisultati() {
     if (_staCercando) return const Center(child: CircularProgressIndicator());
-    if (_risultati == null) return Center(child: Text('typing'.i18n()));
+    if (_risultati == null) return Center(child: Text('typing'.i18n(), style: Theme.of(context).textTheme.labelLarge,));
     if (_risultati!.isEmpty) return const Center(child: Text("Nessun BnB trovato."));
 
     return ListView.builder(
@@ -95,9 +94,9 @@ class _SearchState extends State<Search> {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 10)],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.15), blurRadius: 10)],
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -158,7 +157,7 @@ class _SearchState extends State<Search> {
         padding: const EdgeInsets.all(20.0),
         child: Text(
           'search'.i18n(),
-          style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
     );
@@ -173,7 +172,7 @@ class _SearchState extends State<Search> {
             'ordina_per'.i18n(),
             style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey.shade700,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.bold
             ),
           ),
@@ -181,14 +180,10 @@ class _SearchState extends State<Search> {
             initialSelection: _ordinamentoCorrente,
             enableSearch: false,
             requestFocusOnTap: false,
-            textStyle: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Colors.black
-            ),
+            textStyle: Theme.of(context).textTheme.labelLarge,
             inputDecorationTheme: InputDecorationTheme(
               filled: true,
-              fillColor: Colors.grey.shade100,
+              fillColor: Theme.of(context).hintColor,
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -197,7 +192,7 @@ class _SearchState extends State<Search> {
               isDense: true,
             ),
             menuStyle: MenuStyle(
-              backgroundColor: WidgetStateProperty.all(Colors.white),
+              backgroundColor: WidgetStateProperty.all(Theme.of(context).hintColor),
               elevation: WidgetStateProperty.all(4),
               shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

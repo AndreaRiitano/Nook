@@ -107,7 +107,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: Text('registrati'.i18n(), style: const TextStyle(fontSize: 25)),
@@ -118,15 +117,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              TextField(controller: _nomeController, decoration: AppTheme.textBoxDecoNome),
+              TextField(controller: _nomeController, decoration: AppTheme.textBoxDecoNome(context)),
               const SizedBox(height: 35),
-              TextField(controller: _cognomeController, decoration: AppTheme.textBoxDecoCognome),
+              TextField(controller: _cognomeController, decoration: AppTheme.textBoxDecoCognome(context)),
               const SizedBox(height: 35),
               _buildDatePickerField(),
               const SizedBox(height: 35),
-              TextField(controller: _emailController, decoration: AppTheme.textBoxDecoEmail),
+              TextField(controller: _emailController, decoration: AppTheme.textBoxDecoEmail(context)),
               const SizedBox(height: 35),
-              TextField(controller: _passwordController, obscureText: true, decoration: AppTheme.textBoxDecoPassword),
+              TextField(controller: _passwordController, obscureText: true, decoration: AppTheme.textBoxDecoPassword(context)),
               const SizedBox(height: 35),
               _buildGenderDropdown(),
               const SizedBox(height: 60),
@@ -143,27 +142,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       controller: _dataNascitaController,
       readOnly: true,
       onTap: _selectDate,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.indigo.shade50,
-        labelText: 'nascita'.i18n(),
-        prefixIcon: const Icon(Icons.calendar_today),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade400)),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Colors.teal, width: 2)),
-      ),
+      decoration: AppTheme.boxDecoDate(context),
     );
   }
 
   Widget _buildGenderDropdown() {
     return DropdownButtonFormField<String>(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.indigo.shade50,
-        labelText: 'genere'.i18n(),
-        prefixIcon: const Icon(Icons.accessibility_new_rounded),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade400)),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Colors.teal, width: 2)),
-      ),
+      decoration: AppTheme.boxDecoGender(context),
       items: _genderOptions.map((v) => DropdownMenuItem(value: v, child: Text(v))).toList(),
       onChanged: (val) => setState(() => _selectedGender = val),
     );

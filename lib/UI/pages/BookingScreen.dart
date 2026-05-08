@@ -28,10 +28,7 @@ class _BookingScreenState extends State<BookingScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Colors.black,
-              onPrimary: Colors.white,
-            ),
+            colorScheme:  Theme.of(context).colorScheme,
           ),
           child: child!,
         );
@@ -96,14 +93,12 @@ class _BookingScreenState extends State<BookingScreen> {
     int prezzoTotale = widget.bnb.prezzo * (notti > 0 ? notti : 1);
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme:  IconThemeData(color: Theme.of(context).colorScheme.primary),
         title: Text(
           'richiesta_prenotazione'.i18n(),
-          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: SingleChildScrollView(
@@ -130,7 +125,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     children: [
                       Text(
                         widget.bnb.titolo,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style:  TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
                       ),
                       const SizedBox(height: 5),
                       Row(
@@ -147,7 +142,7 @@ class _BookingScreenState extends State<BookingScreen> {
 
             const Padding(padding: EdgeInsets.symmetric(vertical: 25.0), child: Divider()),
 
-            Text('il_tuo_viaggio'.i18n(), style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text('il_tuo_viaggio'.i18n(), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)),
             const SizedBox(height: 20),
 
             Row(
@@ -156,7 +151,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('date'.i18n(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text('date'.i18n(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.primary)),
                     const SizedBox(height: 5),
                     Text(
                       _dateSelezionate == null
@@ -170,7 +165,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   onPressed: _selezionaDate,
                   child: Text(
                     _dateSelezionate == null ? 'aggiungi'.i18n() : 'modifica'.i18n(),
-                    style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                    style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
                   ),
                 )
               ],
@@ -178,7 +173,7 @@ class _BookingScreenState extends State<BookingScreen> {
 
             const Padding(padding: EdgeInsets.symmetric(vertical: 25.0), child: Divider()),
 
-            Text('dettagli_prezzo'.i18n(), style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text('dettagli_prezzo'.i18n(), style:  TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)),
             const SizedBox(height: 20),
 
             if (_dateSelezionate == null)
@@ -187,16 +182,16 @@ class _BookingScreenState extends State<BookingScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('€${widget.bnb.prezzo} x $notti ${'notti_plurale'.i18n()}', style: const TextStyle(fontSize: 16)),
-                  Text('€$prezzoTotale', style: const TextStyle(fontSize: 16)),
+                  Text('€${widget.bnb.prezzo} x $notti ${'notti_plurale'.i18n()}', style:  TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.primary)),
+                  Text('€$prezzoTotale', style:  TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.primary)),
                 ],
               ),
               const Padding(padding: EdgeInsets.symmetric(vertical: 15.0), child: Divider()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('totale_eur'.i18n(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  Text('€$prezzoTotale', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('totale_eur'.i18n(), style:  TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)),
+                  Text('€$prezzoTotale', style:  TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary)),
                 ],
               ),
             ]
@@ -210,7 +205,7 @@ class _BookingScreenState extends State<BookingScreen> {
   Widget _buildInfoDate() {
     return Container(
       padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: Theme.of(context).hintColor, borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           const Icon(Icons.info_outline, color: Colors.grey),
@@ -230,14 +225,14 @@ class _BookingScreenState extends State<BookingScreen> {
               ? null
               : () => _confermaPrenotazione(prezzoTotale),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.black,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             disabledBackgroundColor: Colors.grey.shade300,
             padding: const EdgeInsets.symmetric(vertical: 18),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
           child: _staPrenotando
               ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-              : Text('conferma_paga'.i18n(), style: const TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)),
+              : Text('conferma_paga'.i18n(), style: TextStyle(fontSize: 18, color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.bold)),
         ),
       ),
     );

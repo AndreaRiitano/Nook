@@ -45,20 +45,19 @@ class _ExploreState extends State<Explore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.only(bottom: 100),
           children: [
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Text('explore'.i18n(), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+              child: Text('explore'.i18n(), style: Theme.of(context).textTheme.headlineLarge),
             ),
 
             _buildTitoloSezione('pop'.i18n()),
             _buildCaroselloPopolari(),
-
             _buildTitoloSezione('near'.i18n()),
+
             if (_ricercaPosizione)
               const SizedBox(height: 240, child: Center(child: CircularProgressIndicator()))
             else if (_miaCittaAttuale == null)
@@ -113,7 +112,7 @@ class _ExploreState extends State<Explore> {
   Widget _buildTitoloSezione(String titolo) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      child: Text(titolo, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+      child: Text(titolo, style:Theme.of(context).textTheme.titleMedium),
     );
   }
 }

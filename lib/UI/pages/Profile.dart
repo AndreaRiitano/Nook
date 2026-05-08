@@ -6,6 +6,7 @@ import 'package:nook/model/objects/UserNook.dart';
 import 'PersonalInfo.dart';
 import 'package:localization/localization.dart';
 import 'MyBookingsScreen.dart';
+import 'package:nook/UI/aspects/AppTheme.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -16,20 +17,40 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final isDarkMode = brightness == Brightness.dark;
     final utenteAuth = FirebaseAuth.instance.currentUser;
 
     if (utenteAuth == null) return const Center(child: Text("Nessun utente loggato"));
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         bottom: false,
         child: ListView(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 120),
           children: [
-            Text('profilo'.i18n(), style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 30),
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'profilo'.i18n(),
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  icon: Icon(
+                    isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: () {
+                    final nuovoTema = isDarkMode ? AppThemeType.chiaro : AppThemeType.scuro;
+                    MyApp.setTheme(context, nuovoTema);
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 30,),
             // INTESTAZIONE
             Row(
               children: [
@@ -54,7 +75,7 @@ class _ProfileState extends State<Profile> {
                           final user = snapshot.data;
                           return Text(
                             '${'ciao'.i18n()}, ${user?.nome ?? 'Ospite'}!',
-                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.titleMedium,
                             overflow: TextOverflow.ellipsis,
                           );
                         },
@@ -74,7 +95,7 @@ class _ProfileState extends State<Profile> {
             const SizedBox(height: 40),
 
             // SEZIONE IMPOSTAZIONI ACCOUNT
-            Text('acc_op'.i18n(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('acc_op'.i18n(), style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 10),
 
             _buildNavTile(Icons.person_outline, 'info'.i18n(), () {
@@ -91,7 +112,7 @@ class _ProfileState extends State<Profile> {
             const Divider(),
             const SizedBox(height: 20),
 
-            Text('supporto'.i18n(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('supporto'.i18n(), style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 10),
 
             _buildNavTile(Icons.help_outline, 'assistenza'.i18n(), () {}),
@@ -111,7 +132,7 @@ class _ProfileState extends State<Profile> {
   Widget _buildNavTile(IconData icon, String title, VoidCallback onTap) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: Icon(icon, color: Colors.black87, size: 28),
+      leading: Icon(icon, color: Theme.of(context).colorScheme.onSurface, size: 28),
       title: Text(title, style: const TextStyle(fontSize: 16)),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
       onTap: onTap,
@@ -122,7 +143,7 @@ class _ProfileState extends State<Profile> {
     String linguaCode = Localizations.localeOf(context).languageCode;
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: const Icon(Icons.language, color: Colors.black87, size: 28),
+      leading: Icon(Icons.language, color: Theme.of(context).colorScheme.onSurface, size: 28),
       title: Text('lingua'.i18n(), style: const TextStyle(fontSize: 16)),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -157,7 +178,7 @@ class _ProfileState extends State<Profile> {
   void _mostraSelettoreLingua(BuildContext context) {
     String linguaAttuale = Localizations.localeOf(context).languageCode;
     showModalBottomSheet(
-        backgroundColor: Colors.white,
+
         context: context,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
