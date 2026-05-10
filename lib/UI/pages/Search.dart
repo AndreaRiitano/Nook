@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nook/UI/widgets/BnbCard.dart';
 import 'package:nook/model/managers/DatabaseManager.dart';
 import 'package:nook/model/objects/Bnb.dart';
-import 'BnbDetail.dart';
 import 'package:localization/localization.dart';
 
 class Search extends StatefulWidget {
@@ -85,47 +84,21 @@ class _SearchState extends State<Search> {
     if (_risultati!.isEmpty) return const Center(child: Text("Nessun BnB trovato."));
 
     return ListView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       itemCount: _risultati!.length,
-      itemBuilder: (context, index) => _buildBnbCard(_risultati![index]));
-  }
-
-  Widget _buildBnbCard(Bnb bnb) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.15), blurRadius: 10)],
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BnbDetail(bnb: bnb))),
-        child: Column(
-          children: [
-            Image.network(bnb.imageUrl, height: 200, width: double.infinity, fit: BoxFit.cover),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(bnb.titolo, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text("⭐ ${bnb.valutazione}"),
-                    ],
-                  ),
-                  Text(bnb.citta, style: TextStyle(color: Colors.grey.shade600)),
-                  Text('€${bnb.prezzo} / ${'notte'.i18n()}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+      itemBuilder: (context, index) {
+        return Container(
+          height: 280,
+          margin: const EdgeInsets.only(bottom: 10),
+          child: BnbCard(
+            bnb: _risultati![index],
+            width: double.infinity,
+          ),
+        );
+      },
     );
   }
+
   Widget _buildFallbackBanner() {
     return Container(
       width: double.infinity,

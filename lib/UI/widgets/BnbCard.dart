@@ -4,8 +4,9 @@ import 'package:nook/UI/pages/BnbDetail.dart';
 
 class BnbCard extends StatelessWidget {
   final Bnb bnb;
+  final double? width;
 
-  const BnbCard({super.key, required this.bnb});
+  const BnbCard({super.key, required this.bnb, this.width = 170});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class BnbCard extends StatelessWidget {
           MaterialPageRoute(builder: (context) => BnbDetail(bnb: bnb))
       ),
       child: Container(
-        width: 170,
+        width: width,
         margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
