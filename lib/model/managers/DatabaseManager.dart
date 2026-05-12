@@ -131,7 +131,7 @@ class DatabaseManager {
   }
 
 
-  /// Logica di ricerca centralizzata: include ricerca testo, fallback e ordinamento
+  /// Logica di ricerca
   Future<List<Bnb>> searchBnbs({
     required String query,
     required String ordinamento,
@@ -208,7 +208,7 @@ class DatabaseManager {
       password: password.trim(),
     );
   }
-  // --- UTENTI ---
+
 
   /// Recupera il nome e cognome di un utente cercando all'interno del campo 'userId'
   Future<String> getNomeUtenteById(String targetUserId) async {
@@ -314,7 +314,6 @@ class DatabaseManager {
       'data': FieldValue.serverTimestamp(),
     });
 
-    //  Aggiorno la prenotazione segnando che è stata recensita
     await _firestore.collection('prenotazioni').doc(prenotazioneId).update({
       'haRecensito': true,
     });

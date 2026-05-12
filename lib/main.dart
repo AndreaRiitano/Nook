@@ -8,7 +8,7 @@ import 'UI/aspects/AppTheme.dart';
 import 'UI/pages/LoginScreen.dart';
 import 'UI/pages/RegisterScreen.dart';
 import 'model/aspects/firebase_options.dart';
-import 'UI/behavior/AuthGate.dart';
+import 'UI/widgets/AuthGateWidget.dart';
 import 'UI/behavior/ThemeController.dart';
 
 void main() async {
@@ -106,7 +106,7 @@ class _MyAppState extends State<MyApp> {
 
               theme: widget.themeController.currentThemeData,
 
-              home: const AuthGate()
+              home: AuthGate()
           );
         }
     );
